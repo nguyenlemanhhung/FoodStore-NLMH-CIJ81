@@ -41,7 +41,7 @@ function SigninForm() {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <PersonIcon />
+              <PersonIcon fontSize="small" />
             </InputAdornment>
           ),
         }}
@@ -58,17 +58,22 @@ function SigninForm() {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <LockIcon />
+              <LockIcon fontSize="small" />
             </InputAdornment>
           ),
           endAdornment: (
             <InputAdornment position="start">
               <IconButton
+                size="small"
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
                 onMouseDown={handleMouseDownPassword}
               >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                {showPassword ? (
+                  <VisibilityOff fontSize="small" />
+                ) : (
+                  <Visibility fontSize="small" />
+                )}
               </IconButton>
             </InputAdornment>
           ),

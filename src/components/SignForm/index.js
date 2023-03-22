@@ -2,10 +2,7 @@ import React, { useState } from "react";
 // import styled from "styled-components";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -20,30 +17,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const expandingTransition = {
-  type: "spring",
-  duration: 2.3,
-  stiffness: 30,
+const dialogContent = {
+  width: "350px",
+  minHeight: "600px",
+  padding: "30px 20px 40px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  backgroundColor: "#fff",
+  boxShadow: "0 0 2px rgba(15, 15, 15, 0.28)",
+  position: "relative",
+  overflow: "hidden",
 };
-
-// const BoxContainer = styled("div")({
-//   width: "350px",
-//   minHeight: "650px",
-//   display: "flex",
-//   flexDirection: "column",
-//   borderRadius: "19px",
-//   backgroundColor: "#fff",
-//   boxShadow: "0 0 2px rgba(15, 15, 15, 0.28)",
-//   position: "relative",
-//   overflow: "hidden",
-// });
-const TopContainer = styled("div")({
+const formTitle = {
   width: "100%",
   height: "250px",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-});
+};
 const HeaderContainer = styled("h5")({
   width: "100%",
   display: "flex",
@@ -51,25 +42,26 @@ const HeaderContainer = styled("h5")({
 });
 const HeaderText = styled("h5")({
   fontSize: "30px",
-  fontWeight: "600",
+  fontWeight: "700",
   lineHeight: "1.24",
   color: "#fff",
   zIndex: "10",
   margin: "0",
 });
-const BackDrop = styled("div")({
-  width: "160%",
-  height: "550px",
+const BackDrop = styled(motion.div)({
+  width: "200%",
+  height: "600px",
   position: "absolute",
   display: "flex",
   flexDirection: "column",
   borderRadius: "50%",
   transform: "rotate(60deg)",
-  top: "-290px",
-  left: "-70px",
+  top: "-600px",
+  left: "-200px",
   background: "rgb(241, 196, 15)",
-  //   background:
-  //     "linear-gradient(58deg,rgba(241, 196, 15, 1) 20%,rgba(243, 172, 18, 1) 100%)",
+  background:
+    "linear-gradient(58deg,rgba(241, 196, 15, 1) 20%,rgba(243, 172, 18, 1) 100%)",
+  zIndex: "5",
 });
 const SmallText = styled("h6")({
   color: "#fff",
@@ -80,38 +72,45 @@ const SmallText = styled("h6")({
   marginTop: "7px",
 });
 
-const InnerContainer = styled("div")({
+const formContainer = {
   width: "100%",
   display: "flex",
   flexDirection: "column",
-});
+};
 const backdropVariants = {
   expanded: {
-    width: "233%",
-    height: "1050px",
+    width: "300%",
+    height: "2000px",
     borderRadius: "20%",
     transform: "rotate(60deg)",
   },
   collapsed: {
-    width: "160%",
-    height: "550px",
+    width: "200%",
+    height: "800px",
     borderRadius: "50%",
     transform: "rotate(60deg)",
   },
 };
+const expandingTransition = {
+  type: "spring",
+  duration: 2.3,
+  stiffness: 30,
+};
 
 export default function SignForm() {
   const [isExpanded, setExpanded] = useState(false);
+
   const [active, setActive] = useState("signin");
+
   const switchToSignup = () => {
-    // playExpandingAnimation();
+    playExpandingAnimation();
     setTimeout(() => {
       setActive("signup");
     }, 400);
   };
 
   const switchToSignin = () => {
-    // playExpandingAnimation();
+    playExpandingAnimation();
     setTimeout(() => {
       setActive("signin");
     }, 400);
@@ -122,13 +121,6 @@ export default function SignForm() {
       setExpanded(false);
     }, expandingTransition.duration * 1000 - 1500);
   };
-  //   const [isExpanded, setExpanded] = useState(false);
-  //   const playExpandingAnimation = () => {
-  //     setExpanded(true);
-  //     setTimeout(() => {
-  //       setExpanded(false);
-  //     }, 3000);
-  //   };
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -152,26 +144,14 @@ export default function SignForm() {
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogContent
-            sx={{
-              width: "350px",
-              minHeight: "650px",
-              display: "flex",
-              flexDirection: "column",
-              backgroundColor: "#fff",
-              boxShadow: "0 0 2px rgba(15, 15, 15, 0.28)",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <TopContainer>
-              <BackDrop
-                initial={false}
-                animate={isExpanded ? "expanded" : "collapsed"}
-                variants={backdropVariants}
-                transition={expandingTransition}
-              />
-
+          <DialogContent sx={dialogContent}>
+            <BackDrop
+              initial={false}
+              animate={isExpanded ? "expanded" : "collapsed"}
+              variants={backdropVariants}
+              transition={expandingTransition}
+            />
+            <Box sx={formTitle}>
               {active === "signin" && (
                 <HeaderContainer>
                   <HeaderText>Welcome</HeaderText>
@@ -186,29 +166,11 @@ export default function SignForm() {
                   <SmallText>Please sign-up to continue!</SmallText>
                 </HeaderContainer>
               )}
-            </TopContainer>
-            <InnerContainer>
+            </Box>
+            <Box sx={formContainer}>
               {active === "signin" && <SigninForm />}
               {active === "signup" && <SignupForm />}
-              <p onClick={playExpandingAnimation}>click</p>
-            </InnerContainer>
-
-            {/* <BoxContainer>
-            <TopContainer>
-              <BackDrop
-                initial
-                animate={isExpanded ? "expanded" : "collapsed"}
-                variants={backdropVariants}
-                className="back-drop"
-              />
-              <HeaderContainer>
-                <HeaderText>Welcome</HeaderText>
-                <HeaderText>Back</HeaderText>
-              </HeaderContainer>
-            </TopContainer>
-            <SigninForm />
-            <p onClick={playExpandingAnimation}>click</p>
-          </BoxContainer> */}
+            </Box>
           </DialogContent>
         </Dialog>
       </SignFormContext.Provider>
