@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -9,12 +9,25 @@ import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
 import DiscountIcon from "@mui/icons-material/Discount";
 
 export default function PaymentForm() {
+  const DEFAULT_DATA = {
+    name: "",
+    phone: "",
+    address: "",
+    discountCode: "",
+  };
+  const [customerInfo, setCustomerInfo] = useState(DEFAULT_DATA);
+  console.log("customerInfo", customerInfo);
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setCustomerInfo({ ...customerInfo, [name]: value });
+  };
   return (
     <React.Fragment>
       <Grid container spacing={3}>
         <Grid item xs={12} sx={{ display: "flex", alignItems: "flex-end" }}>
           <PersonIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
+            onChange={(e) => handleChangeInput(e)}
             required
             id="name"
             name="name"
@@ -27,6 +40,7 @@ export default function PaymentForm() {
         <Grid item xs={12} sx={{ display: "flex", alignItems: "flex-end" }}>
           <PermPhoneMsgIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
+            onChange={(e) => handleChangeInput(e)}
             required
             id="phone"
             name="phone"
@@ -39,6 +53,7 @@ export default function PaymentForm() {
         <Grid item xs={12} sx={{ display: "flex", alignItems: "flex-end" }}>
           <PersonPinCircleIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
+            onChange={(e) => handleChangeInput(e)}
             required
             id="address"
             name="address"
@@ -52,9 +67,10 @@ export default function PaymentForm() {
         <Grid item xs={12} sx={{ display: "flex", alignItems: "flex-end" }}>
           <DiscountIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
+            onChange={(e) => handleChangeInput(e)}
             // required
-            id="zip"
-            name="zip"
+            id="discountCode"
+            name="discountCode"
             label="Discount Code"
             fullWidth
             autoComplete="shipping discount-code"

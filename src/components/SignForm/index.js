@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import SigninForm from "./SigninForm";
 import SignupForm from "./SignupForm";
-import { useStepContext } from "@mui/material";
 import { motion } from "framer-motion";
 import { SignFormContext } from "./SignFormContext";
 
@@ -35,6 +34,7 @@ const formTitle = {
   display: "flex",
   flexDirection: "column",
 };
+
 const HeaderContainer = styled("h5")({
   width: "100%",
   display: "flex",

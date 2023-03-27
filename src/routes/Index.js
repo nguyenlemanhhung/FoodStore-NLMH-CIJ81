@@ -9,9 +9,6 @@ function Router() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
-
-        {/* <Route path="" element={<TodoList />} />
-            <Route path="" element={<TrafficLights />} /> */}
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,14 +11,17 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Badge from "@mui/material/Badge";
+import { FoodContext } from "./FoodContext";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Header() {
+  const { foodData } = useContext(FoodContext);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,10 +39,17 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const totalQuantityInCart = (foodData) => {
+    if (foodData) {
+      return foodData
+        .map((food) => food.quantity)
+        .reduce((sum, i) => sum + i, 0);
+    }
+  };
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -90,7 +100,15 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  sx={{
+                    backgroundColor: "yellow",
+                    margin: "5px",
+                    color: "red",
+                  }}
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -120,15 +138,23 @@ function Header() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  backgroundColor: "black",
+                }}
               >
                 {page}
               </Button>
             ))}
           </Box>
           <IconButton size="large" aria-label="show 17 foods" color="inherit">
-            <Badge badgeContent={17} color="error">
-              <ShoppingCartIcon />
+            <Badge
+              badgeContent={foodData ? `${totalQuantityInCart(foodData)}` : 0}
+              color="error"
+            >
+              <ShoppingBasketIcon />
             </Badge>
           </IconButton>
           <Box sx={{ flexGrow: 0 }}>

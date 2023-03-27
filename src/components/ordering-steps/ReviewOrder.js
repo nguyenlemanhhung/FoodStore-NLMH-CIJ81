@@ -3,7 +3,6 @@ import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 const products = [
@@ -30,14 +29,6 @@ const products = [
   { name: "Shipping", desc: "", price: "Free" },
 ];
 
-const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" },
-];
-
 export default function ReviewOrder() {
   return (
     <Box sx={{ overflow: "auto" }}>
@@ -60,6 +51,9 @@ export default function ReviewOrder() {
         </ListItem>
       </List>
       <List>
+        <ListItem>Name: John Smith</ListItem>
+        <ListItem>Phone: 0123456789</ListItem>
+        <ListItem>Address: Reactville, Anytown, 99999, USA</ListItem>
         <ListItem>Name: John Smith</ListItem>
         <ListItem>Phone: 0123456789</ListItem>
         <ListItem>Address: Reactville, Anytown, 99999, USA</ListItem>
