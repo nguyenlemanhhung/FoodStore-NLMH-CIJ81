@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Category from "./Category";
-import { FoodContext } from "./FoodContext";
+import { FoodCartContext } from "./FoodCartContext";
 import Stack from "@mui/material/Stack";
 import FoodCard from "./FoodCard";
 
@@ -25,11 +25,19 @@ function Foods() {
     setFoodFilter();
   }, []);
 
-  const [foodFilter, setFoodFilter] = useState(foods);
+  const [foodFilter, setFoodFilter] = useState();
 
   const [categoriesOfFood, setCategoriesOfFood] = useState([
     {
       id: 1,
+      isActive: true,
+      type: "all",
+      name: "All",
+      imgSrc:
+        "https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fburger3.png?alt=media&token=0ebe8311-6378-411b-9b6e-d7a6d2a106a2",
+    },
+    {
+      id: 2,
       isActive: false,
       type: "burger",
       name: "Burger",
@@ -37,7 +45,7 @@ function Foods() {
         "https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fburger3.png?alt=media&token=0ebe8311-6378-411b-9b6e-d7a6d2a106a2",
     },
     {
-      id: 2,
+      id: 3,
       isActive: false,
       type: "pizza",
       name: "Pizza",
@@ -45,7 +53,7 @@ function Foods() {
         "https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fpizzaslice.png?alt=media&token=c91c0c7e-ffa9-41be-ba84-c3b45c79d483",
     },
     {
-      id: 3,
+      id: 4,
       isActive: false,
       type: "hotdog",
       name: "Hotdog",
@@ -53,7 +61,7 @@ function Foods() {
         "https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fhdog1.png?alt=media&token=658e67d8-9284-4ba4-93ad-778dad99ce9c",
     },
     {
-      id: 4,
+      id: 5,
       isActive: false,
       type: "taco",
       name: "Taco",
@@ -61,7 +69,7 @@ function Foods() {
         "https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Ftaco1.png?alt=media&token=b78c8e68-c1a6-4e43-8c43-6ef9f23aa59f",
     },
     {
-      id: 5,
+      id: 6,
       isActive: false,
       type: "snack",
       name: "Snack",
@@ -69,7 +77,7 @@ function Foods() {
         "https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fsnack1.png?alt=media&token=d670617e-4bfc-4693-aa8c-211db9f9d706",
     },
     {
-      id: 6,
+      id: 7,
       isActive: false,
       type: "drink",
       name: "Drink",
@@ -81,19 +89,20 @@ function Foods() {
   const handleFilterFoodByCategory = (item) => {
     setCategoriesOfFood(() =>
       categoriesOfFood.map((category) => {
+        let isActive = false;
         if (item.id === category.id) {
-          const isActive = !item.isActive;
+          isActive = true;
           console.log("is completed:", isActive);
-          return { ...category, isActive };
         }
-        return category;
+        return { ...category, isActive };
       })
     );
+
     const listFoodFilter = foods.filter((e) => e.type === item.type);
     setFoodFilter(listFoodFilter);
   };
 
-  const { foodData, setFoodData } = useContext(FoodContext);
+  const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
 
   const [foodCart, setFoodCart] = useState([]);
 
@@ -120,19 +129,24 @@ function Foods() {
   };
   useEffect(() => {
     if (foodCart.length > 0) {
-      setFoodData(foodCart);
+      setFoodCartData(foodCart);
     }
   }, [foodCart]);
 
   return (
     <Box>
-      <Box>
+      <Box
+        sx={{
+          position: "sticky",
+          top: "70px",
+          zIndex: 100,
+        }}
+      >
         <Typography
           variant="body1"
           sx={{
             color: "#52616B",
             fontWeight: "700",
-            // marginBottom: "20px",
           }}
         >
           Menu Category

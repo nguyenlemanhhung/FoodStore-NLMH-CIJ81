@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -8,7 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
 import DiscountIcon from "@mui/icons-material/Discount";
 
-export default function PaymentForm() {
+export default function PaymentForm({ handleFormData }) {
   const DEFAULT_DATA = {
     name: "",
     phone: "",
@@ -21,6 +21,9 @@ export default function PaymentForm() {
     const { name, value } = e.target;
     setCustomerInfo({ ...customerInfo, [name]: value });
   };
+  useEffect(() => {
+    handleFormData(customerInfo);
+  }, [handleFormData, customerInfo]);
   return (
     <React.Fragment>
       <Grid container spacing={3}>

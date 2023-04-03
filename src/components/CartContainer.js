@@ -12,8 +12,8 @@ function CartContainer() {
         width: "350px",
         position: "sticky",
         right: "0",
-        top: "0",
-        height: "calc(100vh - 70px)",
+        top: "70px",
+        height: "calc(100vh - 110px)",
         padding: "20px 10px",
         borderRadius: "10px",
         boxShadow:

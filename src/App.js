@@ -1,6 +1,6 @@
 import "./App.css";
 import Router from "./routes/Index";
-import { FoodProvider } from "./components/FoodContext";
+import { FoodProvider } from "./components/FoodCartContext";
 
 function App() {
   return (

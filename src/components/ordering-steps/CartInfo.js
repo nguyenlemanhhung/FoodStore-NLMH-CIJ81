@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import { FoodContext } from "../FoodContext";
+import { FoodCartContext } from "../FoodCartContext";
 
 // function totalPrice(foodData) {
 //   return foodData
@@ -15,16 +15,16 @@ import { FoodContext } from "../FoodContext";
 // console.log("totalPrice", totalPrice(foodData));
 
 export default function CartInfo() {
-  const { foodData, setFoodData } = useContext(FoodContext);
+  const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
 
   const reduceQuantity = (item) => {
-    const existingItem = foodData.find((food) => food.id === item.id);
+    const existingItem = foodCartData.find((food) => food.id === item.id);
 
     if (existingItem.quantity === 1) {
-      setFoodData(() => foodData.filter((food) => food.id !== item.id));
+      setFoodCartData(() => foodCartData.filter((food) => food.id !== item.id));
     } else {
-      setFoodData(() =>
-        foodData.map((food) =>
+      setFoodCartData(() =>
+        foodCartData.map((food) =>
           food.id === item.id ? { ...food, quantity: food.quantity - 1 } : food
         )
       );
@@ -33,16 +33,16 @@ export default function CartInfo() {
 
   const incQuantity = (item) => {
     console.log("item click:", item);
-    setFoodData(() =>
-      foodData.map((food) =>
+    setFoodCartData(() =>
+      foodCartData.map((food) =>
         food.id === item.id ? { ...food, quantity: food.quantity + 1 } : food
       )
     );
   };
   return (
     <Box sx={{ width: "100%" }}>
-      {foodData &&
-        foodData.map((item) => (
+      {foodCartData &&
+        foodCartData.map((item) => (
           <Stack spacing={2} sx={{ mb: 2 }}>
             <Box
               sx={{

@@ -8,16 +8,16 @@ import Button from "@mui/material/Button";
 import CartInfo from "./CartInfo";
 import PaymentForm from "./PaymentForm";
 import ReviewOrder from "./ReviewOrder";
-import { FoodContext } from "../FoodContext";
+import { FoodCartContext } from "../FoodCartContext";
 
 const steps = ["Cart information", "Payment details", "Review your order"];
 
-function getStepContent(step) {
+function getStepContent(step, handlePaymentData) {
   switch (step) {
     case 0:
       return <CartInfo />;
     case 1:
-      return <PaymentForm />;
+      return <PaymentForm handleFormData={handlePaymentData} />;
     case 2:
       return <ReviewOrder />;
     default:
@@ -26,7 +26,8 @@ function getStepContent(step) {
 }
 
 export default function OrderingSteps() {
-  const { foodData } = useContext(FoodContext);
+  const { foodCartData } = useContext(FoodCartContext);
+  console.log("food data:", foodCartData);
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -50,10 +51,12 @@ export default function OrderingSteps() {
   //   const { name, value } = e.target;
   //   setCustomerInfo({ ...customerInfo, [name]: value });
   // };
-
+  const handlePaymentData = (paymentData) => {
+    console.log("paymentData", paymentData);
+  };
   return (
     <Box sx={{ height: "100%" }}>
-      {foodData ? (
+      {foodCartData && foodCartData.length > 0 ? (
         <Box
           sx={{
             height: "100%",
@@ -103,7 +106,7 @@ export default function OrderingSteps() {
                   marginBottom: "10px",
                 }}
               >
-                {getStepContent(activeStep)}
+                {getStepContent(activeStep, handlePaymentData)}
               </Box>
               {activeStep === 0 && (
                 <Box
@@ -135,7 +138,7 @@ export default function OrderingSteps() {
                     >
                       $
                     </span>
-                    {foodData
+                    {foodCartData
                       .map((food) => food.quantity * food.price)
                       .reduce((sum, i) => sum + i, 0)}
                   </h3>
