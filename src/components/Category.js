@@ -4,17 +4,17 @@ import { motion } from "framer-motion";
 import { styled } from "@mui/material/styles";
 
 const CategoryContainer = styled(motion.button)({
-  padding: "10px",
+  padding: "5px",
   border: "none",
-  borderRadius: "10px",
-  backgroundColor: "#fff",
+  borderRadius: "30px",
+  backgroundColor: "#FFEBE4",
+  color: "#FC6011",
   display: "inline-block",
-  color: "#52616B",
   boxShadow:
     "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
   "&:hover": {
-    backgroundColor: "#FFEBE4",
-    color: "#FC6011",
+    backgroundColor: "#FC6011",
+    color: "#fff",
   },
 });
 
@@ -25,16 +25,16 @@ function Category(props) {
     <CategoryContainer
       sx={
         item.isActive === true
-          ? { backgroundColor: "#FFEBE4", color: "#FC6011" }
+          ? { backgroundColor: "#FC6011", color: "#fff" }
           : {}
       }
-      whileHover={{ scale: 1.2 }}
+      whileHover={{ scale: 1.1 }}
       onClick={() => handleFilterFoodByCategory(item)}
     >
       <img
         style={{
-          width: "50px",
-          height: "50px",
+          width: "40px",
+          height: "40px",
           padding: "5px",
           borderRadius: "50%",
           backgroundColor: "#fff",
@@ -43,8 +43,9 @@ function Category(props) {
       />
       <Typography
         sx={{
-          fontSize: "14px",
+          fontSize: "12px",
           fontWeight: "700",
+          padding: "10px 0",
         }}
       >
         {item.name}

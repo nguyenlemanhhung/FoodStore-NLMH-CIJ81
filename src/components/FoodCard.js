@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { styled } from "@mui/material/styles";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Tooltip from "@mui/material/Tooltip";
+import Box from "@mui/material/Box";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -24,12 +25,14 @@ const FoodContainer = styled(motion.div)({
   flexDirection: "column",
   alignItems: "end",
   justifyContent: "end",
+  transition: "height 2s ease",
   "&:hover": {
     backgroundColor: "#fff",
-    // boxShadow:
-    //   "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     boxShadow:
       "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
+    ".description": {
+      display: "block",
+    },
   },
 });
 
@@ -48,13 +51,12 @@ function FoodCard(props) {
       <FoodContainer whileHover={{ y: -5 }}>
         <Tooltip title="Add to favorites" placement="bottom" arrow>
           <Checkbox
-            // size="small"
             {...label}
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite sx={{ color: "#faaf00" }} />}
             sx={{
               position: "absolute",
-              bottom: "10px",
+              top: "110px",
               left: "10px",
             }}
           />
@@ -96,9 +98,6 @@ function FoodCard(props) {
             position: "absolute",
             left: "30px",
             top: "-40px",
-            // left: "50%",
-            // top: "-50px",
-            // transform: "translateX(-50%)",
             zIndex: "10",
           }}
         />
@@ -132,6 +131,28 @@ function FoodCard(props) {
 
           {item.price}
         </Typography>
+        <Box
+          className="description"
+          sx={{
+            display: "none",
+            marginTop: "10px",
+            padding: "10px 0",
+            borderTop: "1px solid #f4f4f4",
+            transition: "height 2s ease",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "14px",
+              color: "#444444",
+              fontWeight: "400",
+            }}
+          >
+            Bạc sỉu chính là "Ly sữa trắng kèm một chút cà phê". Thức uống này
+            rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê
+            vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.
+          </Typography>
+        </Box>
       </FoodContainer>
     </Grid>
   );

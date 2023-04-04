@@ -172,6 +172,7 @@ function NavBar() {
               <ShoppingBasketIcon />
             </Badge>
           </IconButton>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton

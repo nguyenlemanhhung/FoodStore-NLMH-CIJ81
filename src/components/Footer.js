@@ -1,136 +1,145 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import bgFooter from "../assets/image/bg-footer.png";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import { Button, Typography } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import NearMeIcon from "@mui/icons-material/NearMe";
-import Link from "@mui/material/Link";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import Divider from "@mui/material/Divider";
+import TelegramIcon from "@mui/icons-material/Telegram";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#1A2027",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: "#fff",
-}));
-
+const ButtonSocial = styled(IconButton)({
+  color: "#000",
+  borderRadius: 0,
+  // border: "1px solid #FAAF00",
+  "&:hover": {
+    // backgroundColor: "#fff",
+    color: "#FAAF00",
+  },
+});
+const TextHightLight = styled("span")({
+  color: "#faaf00",
+  fontSize: "14px",
+});
 export default function Footer() {
   return (
-    <Container
-      maxWidth="xl"
+    <Box
       sx={{
-        backgroundColor: "#666",
+        backgroundImage: `url(${bgFooter})`,
+        backgroundColor: "rgba(255,255,255, 0.9) ",
+        backgroundBlendMode: "overlay",
+        backgroundSize: "cover",
         padding: "30px 0",
       }}
     >
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid xs={12} md={5} lg={4} sx={{ textAlign: "center" }}>
-            <img
-              style={{
-                width: "100px",
+      <Container
+        maxWidth="md"
+        sx={{
+          textAlign: "center",
+        }}
+      >
+        <Grid container>
+          <Grid item xs={12}>
+            <Divider
+              sx={{
+                "&::before": {
+                  borderTop: "2px solid #faaf00",
+                },
+                "&::after": {
+                  borderTop: "2px solid #faaf00",
+                },
               }}
-              src="https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Flogo.png?alt=media&token=fc228623-ef27-4af4-8ea5-b9ebeeaf47dc"
+            >
+              <img
+                style={{ width: "200px" }}
+                src={require("../assets/image/burger.png")}
+              />
+            </Divider>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Button>
+              <img
+                style={{ width: "150px" }}
+                src={require("../assets/icons/google-play.png")}
+              />
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box>
+              <Tooltip title="Facebook" placement="bottom" arrow>
+                <ButtonSocial>
+                  <FacebookIcon />
+                </ButtonSocial>
+              </Tooltip>
+              <Tooltip title="Instagram" placement="bottom" arrow>
+                <ButtonSocial>
+                  <InstagramIcon />
+                </ButtonSocial>
+              </Tooltip>
+              <Tooltip title="LinkedIn" placement="bottom" arrow>
+                <ButtonSocial>
+                  <LinkedInIcon />
+                </ButtonSocial>
+              </Tooltip>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Button>
+              <img
+                style={{ width: "150px" }}
+                src={require("../assets/icons/app-store.png")}
+              />
+            </Button>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Divider
+              orientation="vertical"
+              sx={{ height: "40px", borderColor: "#faaf00" }}
             />
+            <Typography mt={1} sx={{ fontSize: "12px" }}>
+              <TextHightLight>Sign up</TextHightLight> to receive{" "}
+              <TextHightLight>promotional information</TextHightLight> and{" "}
+              <TextHightLight>discount codes</TextHightLight>
+            </Typography>
             <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-              <InputLabel>Password</InputLabel>
+              <InputLabel htmlFor="send-email">Your Email</InputLabel>
               <OutlinedInput
+                id="send-email"
                 endAdornment={
                   <InputAdornment position="end">
-                    <IconButton>
-                      <NearMeIcon />
+                    <IconButton
+                      edge="end"
+                      sx={{
+                        color: "#faaf00",
+                      }}
+                    >
+                      <TelegramIcon />
                     </IconButton>
                   </InputAdornment>
                 }
-                label="Password"
               />
             </FormControl>
           </Grid>
-
-          <Grid container xs={12} md={7} lg={8} spacing={4}>
-            <Grid xs={6} lg={3}>
-              <Item>
-                <Typography variant="h6">About Us</Typography>
-
-                <Box sx={{ pl: 2 }}>
-                  <Typography sx={{ fontSize: "14px" }}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Quos blanditiis tenetur unde suscipit, quam beatae rerum
-                    inventore consectetur
-                  </Typography>
-                </Box>
-              </Item>
-            </Grid>
-            <Grid xs={6} lg={3}>
-              <Item>
-                <Typography variant="h6">Quick link</Typography>
-                <Box sx={{ pl: 2, display: "flex", flexDirection: "column" }}>
-                  <Link href="#" underline="none">
-                    {"Link 1"}
-                  </Link>
-                  <Link href="#" underline="none">
-                    {"Link 2"}
-                  </Link>
-                  <Link href="#" underline="none">
-                    {"Link 3"}
-                  </Link>
-                </Box>
-              </Item>
-            </Grid>
-            <Grid xs={6} lg={3}>
-              <Item>
-                <Typography variant="h6">About Us</Typography>
-                <Box component="ul" aria-labelledby="category-c" sx={{ pl: 2 }}>
-                  <li>Link 3.1</li>
-                  <li>Link 3.2</li>
-                  <li>Link 3.3</li>
-                </Box>
-              </Item>
-            </Grid>
-            <Grid xs={6} lg={3}>
-              <Item>
-                <Box
-                  id="category-d"
-                  sx={{ fontSize: "12px", textTransform: "uppercase" }}
-                >
-                  Category D
-                </Box>
-                <Box component="ul" aria-labelledby="category-d" sx={{ pl: 2 }}>
-                  <li>Link 4.1</li>
-                  <li>Link 4.2</li>
-                  <li>Link 4.3</li>
-                </Box>
-              </Item>
-            </Grid>
-          </Grid>
         </Grid>
-      </Box>
-      <Divider sx={{ margin: "20px 0" }} />
-      <Box>
-        <Stack direction="row" spacing={2}>
-          <IconButton>
-            <FacebookIcon />
-          </IconButton>
-          <IconButton>
-            <FacebookIcon />
-          </IconButton>
-          <IconButton>
-            <FacebookIcon />
-          </IconButton>
-        </Stack>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }
