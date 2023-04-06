@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import styled from "styled-components";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -10,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import SigninForm from "./SigninForm";
 import SignupForm from "./SignupForm";
 import { motion } from "framer-motion";
-import { SignFormContext } from "./SignFormContext";
+import { SignFormContext } from "../../context/SignFormContext";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -18,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const dialogContent = {
   width: "350px",
-  minHeight: "600px",
+  minHeight: "500px",
   padding: "30px 20px 40px",
   display: "flex",
   flexDirection: "column",
@@ -98,6 +97,21 @@ const expandingTransition = {
 };
 
 export default function SignForm() {
+  const [users, setUsers] = useState();
+  console.log("users", users);
+  const getData = () => {
+    fetch("https://641ab895c152063412df56eb.mockapi.io/api/v1/user")
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((data) => {
+        setUsers(data);
+      });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   const [isExpanded, setExpanded] = useState(false);
 
   const [active, setActive] = useState("signin");

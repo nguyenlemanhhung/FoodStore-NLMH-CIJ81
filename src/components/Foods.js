@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CategoryCard from "./CategoryCard";
-import { FoodCartContext } from "./FoodCartContext";
+import { FoodCartContext } from "../context/FoodCartContext";
 import Stack from "@mui/material/Stack";
 import FoodCard from "./FoodCard";
 import FoodDetails from "./FoodDetails";

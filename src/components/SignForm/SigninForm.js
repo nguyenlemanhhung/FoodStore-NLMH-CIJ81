@@ -16,7 +16,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { SignFormContext } from "./SignFormContext";
+import { SignFormContext } from "../../context/SignFormContext";
 
 function SigninForm() {
   const { switchToSignup } = useContext(SignFormContext);
@@ -28,6 +28,7 @@ function SigninForm() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  const handleCheckSignIn = () => {};
   return (
     <Box>
       <TextField
@@ -36,8 +37,8 @@ function SigninForm() {
         }}
         variant="outlined"
         fullWidth
-        label="Your Name"
-        id="signin-name"
+        label="Email"
+        id="signin-email"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -85,6 +86,7 @@ function SigninForm() {
       <Button
         sx={{ borderRadius: "50px", width: "100%", mt: 3, mb: 4 }}
         variant="contained"
+        onClick={handleCheckSignIn}
       >
         Sign In
       </Button>

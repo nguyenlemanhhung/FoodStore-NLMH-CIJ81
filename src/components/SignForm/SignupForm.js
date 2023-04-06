@@ -10,7 +10,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { SignFormContext } from "./SignFormContext";
+import { SignFormContext } from "../../context/SignFormContext";
 
 function SignupForm() {
   const { switchToSignin } = useContext(SignFormContext);
@@ -29,8 +29,8 @@ function SignupForm() {
         }}
         variant="outlined"
         fullWidth
-        label="Your Name"
-        id="signup-name"
+        label="Email"
+        id="signup-email"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

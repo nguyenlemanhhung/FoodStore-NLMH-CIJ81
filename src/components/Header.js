@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import SignForm from "./SignForm";
 
 const topBarContents = [
   {
@@ -62,6 +63,9 @@ function TopBar() {
             );
           })}
         </Grid>
+      </Box>
+      <Box>
+        <SignForm />
       </Box>
     </Container>
   );

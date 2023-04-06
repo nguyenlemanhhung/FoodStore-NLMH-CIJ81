@@ -9,7 +9,7 @@ import CartInfo from "./CartInfo";
 import PaymentForm from "./PaymentForm";
 import ReviewOrder from "./ReviewOrder";
 import { styled } from "@mui/material/styles";
-import { FoodCartContext } from "../FoodCartContext";
+import { FoodCartContext } from "../../context/FoodCartContext";
 
 const steps = ["Cart information", "Payment details", "Review your order"];
 const BoxItemStyle = styled("box")({

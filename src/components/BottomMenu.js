@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper";
 import Fab from "@mui/material/Fab";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Badge from "@mui/material/Badge";
-import { FoodCartContext } from "./FoodCartContext";
+import { FoodCartContext } from "../context/FoodCartContext";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import HomeIcon from "@mui/icons-material/Home";
@@ -59,6 +59,10 @@ export default function BottomMenu() {
               backgroundColor: "#faaf00",
               color: "#fff",
               borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "#fff",
+                color: "#faaf00",
+              },
             }}
           >
             <Badge
