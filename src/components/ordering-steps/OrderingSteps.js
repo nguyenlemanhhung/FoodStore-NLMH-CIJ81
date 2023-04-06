@@ -8,10 +8,15 @@ import Button from "@mui/material/Button";
 import CartInfo from "./CartInfo";
 import PaymentForm from "./PaymentForm";
 import ReviewOrder from "./ReviewOrder";
+import { styled } from "@mui/material/styles";
 import { FoodCartContext } from "../FoodCartContext";
 
 const steps = ["Cart information", "Payment details", "Review your order"];
-
+const BoxItemStyle = styled("box")({
+  backgroundColor: "#ceecff",
+  borderRadius: "10px",
+  padding: "10px",
+});
 function getStepContent(step, handlePaymentData) {
   switch (step) {
     case 0:
@@ -38,19 +43,6 @@ export default function OrderingSteps() {
     setActiveStep(activeStep + 1);
   };
 
-  // const DEFAULT_DATA = {
-  //   name: "",
-  //   phone: "",
-  //   address: "",
-  //   discountCode: "",
-  // };
-  // const [customerInfo, setCustomerInfo] = useState(DEFAULT_DATA);
-
-  // console.log("customerInfo", customerInfo);
-  // const handleChangeInput = (e) => {
-  //   const { name, value } = e.target;
-  //   setCustomerInfo({ ...customerInfo, [name]: value });
-  // };
   const handlePaymentData = (paymentData) => {
     console.log("paymentData", paymentData);
   };
@@ -61,11 +53,11 @@ export default function OrderingSteps() {
           sx={{
             height: "100%",
             display: "flex",
-
             flexDirection: "column",
+            // padding: "20px 10px",
           }}
         >
-          <Box>
+          <BoxItemStyle sx={{ marginBottom: "5px" }}>
             <Typography component="h1" variant="h4" align="center">
               Ordering Steps
             </Typography>
@@ -80,7 +72,7 @@ export default function OrderingSteps() {
                 </Step>
               ))}
             </Stepper>
-          </Box>
+          </BoxItemStyle>
           {activeStep === steps.length ? (
             <Box sx={{ padding: "10px" }}>
               <Typography variant="h5" gutterBottom>
@@ -98,17 +90,16 @@ export default function OrderingSteps() {
             </Box>
           ) : (
             <React.Fragment>
-              <Box
+              <BoxItemStyle
                 sx={{
                   overflow: "auto",
-                  height: "90%",
-                  padding: "0 10px",
+                  height: "60%",
                   marginBottom: "10px",
                 }}
               >
                 {getStepContent(activeStep, handlePaymentData)}
-              </Box>
-              {activeStep === 0 && (
+              </BoxItemStyle>
+              {/* {activeStep === 0 && (
                 <Box
                   sx={{
                     margin: "0 20px 10px",
@@ -143,8 +134,8 @@ export default function OrderingSteps() {
                       .reduce((sum, i) => sum + i, 0)}
                   </h3>
                 </Box>
-              )}
-              <Box
+              )} */}
+              <BoxItemStyle
                 sx={{
                   display: "flex",
                   justifyContent: "flex-end",
@@ -160,13 +151,16 @@ export default function OrderingSteps() {
                 <Button variant="contained" onClick={handleNext}>
                   {activeStep === steps.length - 1 ? "Place order" : "Next"}
                 </Button>
-              </Box>
+              </BoxItemStyle>
             </React.Fragment>
           )}
         </Box>
       ) : (
         <Box
           sx={{
+            backgroundColor: "#ceecff",
+            padding: "10px",
+            borderRadius: "10px",
             height: "100%",
             display: "flex",
             justifyContent: "center",

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import TopBar from "./Header";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import Fab from "@mui/material/Fab";
@@ -9,11 +9,11 @@ import Tooltip from "@mui/material/Tooltip";
 function Layout() {
   return (
     <>
-      <Header />
-      <main style={{ background: "#faf9fb" }}>
+      <TopBar />
+      <main style={{ background: "#fff" }}>
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
       <Tooltip
         title="Back to top"
         placement="left"
@@ -26,7 +26,7 @@ function Layout() {
           sx={{
             position: "fixed",
             right: "10px",
-            bottom: "20px",
+            bottom: "60px",
             backgroundColor: "#FC6011",
             "&:hover": {
               backgroundColor: "#fff",

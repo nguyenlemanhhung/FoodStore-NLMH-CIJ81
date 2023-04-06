@@ -2,13 +2,26 @@ import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Category from "./Category";
+import CategoryCard from "./CategoryCard";
 import { FoodCartContext } from "./FoodCartContext";
 import Stack from "@mui/material/Stack";
 import FoodCard from "./FoodCard";
+import FoodDetails from "./FoodDetails";
 
 function Foods() {
   const [foods, setFoods] = useState();
+  const [open, setOpen] = useState(false);
+  const [details, setDetails] = useState(null);
+
+  const handleOpenDialog = (item) => {
+    setDetails(item);
+    setOpen(true);
+    // handleAddCart(item);
+  };
+
+  const handleCloseDialog = () => {
+    setOpen(false);
+  };
 
   const getData = () => {
     fetch("https://641ab895c152063412df56eb.mockapi.io/api/v1/food")
@@ -106,13 +119,15 @@ function Foods() {
 
   const [foodCart, setFoodCart] = useState([]);
 
-  const handleAddCart = (item) => {
+  const handleAddCart = (item, quantity, note) => {
     const checkExistingItem = foodCart.find((e) => e.id === item.id);
     console.log("check item in cart:", checkExistingItem);
     if (checkExistingItem) {
       setFoodCart(() =>
         foodCart.map((food) =>
-          food.id === item.id ? { ...food, quantity: food.quantity + 1 } : food
+          food.id === item.id
+            ? { ...food, note: note, quantity: food.quantity + quantity }
+            : food
         )
       );
     } else {
@@ -122,7 +137,8 @@ function Foods() {
         type: item.type,
         price: item.price,
         image: item.image,
-        quantity: 1,
+        quantity: quantity,
+        note: note,
       };
       setFoodCart(() => [...foodCart, data]);
     }
@@ -135,36 +151,38 @@ function Foods() {
 
   return (
     <Box>
-      <Box
+      <Typography
+        variant="body1"
         sx={{
-          position: "sticky",
-          top: "70px",
-          zIndex: 100,
+          color: "#52616B",
+          fontWeight: "700",
+          marginBottom: "10px",
         }}
       >
-        <Typography
-          variant="body1"
-          sx={{
-            color: "#52616B",
-            fontWeight: "700",
-          }}
-        >
-          Menu Category
-        </Typography>
-        <Stack
-          direction="row"
-          spacing={4}
-          sx={{ overflowX: "auto", padding: "20px 10px" }}
-        >
-          {categoriesOfFood.map((item, index) => (
-            <Category
-              key={index}
-              item={item}
-              handleFilterFoodByCategory={handleFilterFoodByCategory}
-            />
-          ))}
-        </Stack>
-      </Box>
+        Category
+      </Typography>
+      <Stack
+        direction="row"
+        justifyContent="space-around"
+        sx={{
+          overflowX: "auto",
+          padding: "10px 0",
+          position: "sticky",
+          top: "10px",
+          zIndex: 100,
+          backgroundColor: "rgba(255, 255, 255,0.6)",
+          borderRadius: "10px",
+        }}
+      >
+        {categoriesOfFood.map((item, index) => (
+          <CategoryCard
+            key={index}
+            item={item}
+            handleFilterFoodByCategory={handleFilterFoodByCategory}
+          />
+        ))}
+      </Stack>
+
       <Box
         sx={{
           marginTop: "50px",
@@ -175,13 +193,20 @@ function Foods() {
             foodFilter.map((item, idx) => (
               <FoodCard
                 key={idx}
-                handleAddCart={handleAddCart}
+                handleOpenDialog={handleOpenDialog}
                 item={item}
                 idx={idx}
               />
             ))}
         </Grid>
       </Box>
+      <FoodDetails
+        handleAddCart={handleAddCart}
+        cartData={foodCartData}
+        handleCloseDialog={handleCloseDialog}
+        open={open}
+        details={details}
+      />
     </Box>
   );
 }

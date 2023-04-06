@@ -11,6 +11,7 @@ import { styled } from "@mui/material/styles";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
+import FoodDetails from "./FoodDetails";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -19,7 +20,7 @@ const FoodContainer = styled(motion.div)({
   padding: "10px 20px",
   position: "relative",
   overflow: "unset",
-  backgroundColor: "#f2f0f4",
+  backgroundColor: "rgba(255,255,255,0.3)",
   boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px 0px",
   display: "flex",
   flexDirection: "column",
@@ -33,11 +34,15 @@ const FoodContainer = styled(motion.div)({
     ".description": {
       display: "block",
     },
+    ".card-image": {
+      transform: "scale(1.2)",
+    },
   },
 });
 
 function FoodCard(props) {
-  const { handleAddCart, item, idx } = props;
+  const { handleOpenDialog, item, idx } = props;
+
   return (
     <Grid
       item
@@ -68,14 +73,11 @@ function FoodCard(props) {
           sx={{ backgroundColor: "red" }}
         >
           <IconButton
-            onClick={() => handleAddCart(item)}
+            // onClick={handleOpenDialog}
+            onClick={() => handleOpenDialog(item)}
             aria-label="add to shopping cart"
-            // size="small"
             sx={{
               marginBottom: "20px",
-              // position: "absolute",
-              // top: "10px",
-              // right: "10px",
               color: "#faaf00",
               backgroundColor: "#FFF",
               borderRadius: "50%",
@@ -91,6 +93,7 @@ function FoodCard(props) {
           </IconButton>
         </Tooltip>
         <img
+          className="card-image"
           src={item.image}
           style={{
             maxWidth: "150px",

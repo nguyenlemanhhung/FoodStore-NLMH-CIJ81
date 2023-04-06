@@ -16,7 +16,7 @@ import { FoodCartContext } from "../FoodCartContext";
 
 export default function CartInfo() {
   const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
-
+  console.log("foodCartData", foodCartData);
   const reduceQuantity = (item) => {
     const existingItem = foodCartData.find((food) => food.id === item.id);
 
@@ -40,105 +40,149 @@ export default function CartInfo() {
     );
   };
   return (
-    <Box sx={{ width: "100%" }}>
-      {foodCartData &&
-        foodCartData.map((item) => (
-          <Stack spacing={2} sx={{ mb: 2 }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Box
-                sx={{
-                  textAlign: "start",
-                }}
-              >
-                <img
-                  style={{
-                    width: "50px",
-                    backgroundColor: "#00ffc855",
-                    padding: "10px",
-                    borderRadius: "10px",
-                  }}
-                  src={item.image}
-                />
-
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                  }}
-                >
-                  {item.name}
-                </Typography>
-              </Box>
+    <Box className="list-container">
+      <Box className="list-order" sx={{ width: "100%", overflow: "auto" }}>
+        {foodCartData &&
+          foodCartData.map((item, idx) => (
+            <Stack spacing={2} sx={{ mb: 2 }} key={idx}>
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "space-between",
                 }}
               >
-                <IconButton
-                  onClick={() => reduceQuantity(item)}
-                  size="small"
+                <Box
                   sx={{
-                    color: "#555",
-                    "&:hover": {
-                      backgroundColor: "#FFEBE4",
-                      borderRadius: "5px",
-                    },
+                    textAlign: "start",
                   }}
                 >
-                  <RemoveIcon fontSize="small" />
-                </IconButton>
-                <span
-                  style={{
-                    border: "1px solid #faaf00",
-                    padding: "10px",
+                  <img
+                    style={{
+                      width: "50px",
+                      backgroundColor: "#00ffc855",
+                      padding: "10px",
+                      borderRadius: "10px",
+                    }}
+                    src={item.image}
+                  />
+
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                    }}
+                  >
+                    {item.name}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <IconButton
+                    onClick={() => reduceQuantity(item)}
+                    size="small"
+                    sx={{
+                      color: "#555",
+                      "&:hover": {
+                        backgroundColor: "#FFEBE4",
+                        borderRadius: "5px",
+                      },
+                    }}
+                  >
+                    <RemoveIcon fontSize="small" />
+                  </IconButton>
+                  <span
+                    style={{
+                      border: "1px solid #faaf00",
+                      padding: "10px",
+                      fontWeight: "bold",
+                      margin: "0 5px",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {item.quantity}
+                  </span>
+                  <IconButton
+                    onClick={() => incQuantity(item)}
+                    size="small"
+                    sx={{
+                      color: "#555",
+                      "&:hover": {
+                        backgroundColor: "#FFEBE4",
+                        borderRadius: "5px",
+                      },
+                    }}
+                  >
+                    <AddIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+                <Box
+                  sx={{
                     fontWeight: "bold",
-                    margin: "0 5px",
-                    borderRadius: "5px",
+                    color: "#000",
+                    fontSize: "16px",
                   }}
                 >
-                  {item.quantity}
-                </span>
-                <IconButton
-                  onClick={() => incQuantity(item)}
-                  size="small"
-                  sx={{
-                    color: "#555",
-                    "&:hover": {
-                      backgroundColor: "#FFEBE4",
-                      borderRadius: "5px",
-                    },
-                  }}
-                >
-                  <AddIcon fontSize="small" />
-                </IconButton>
+                  <span
+                    style={{
+                      color: "#faaf00",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    $
+                  </span>
+                  {item.price * item.quantity}
+                </Box>
               </Box>
-              <Box
+              <Typography
                 sx={{
-                  fontWeight: "bold",
-                  color: "#000",
-                  fontSize: "16px",
+                  fontSize: "12px",
+                  marginTop: "5px !important",
                 }}
               >
-                <span
-                  style={{
-                    color: "#faaf00",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  $
-                </span>
-                {item.price * item.quantity}
-              </Box>
-            </Box>
-          </Stack>
-        ))}
+                {item.note ? `- Note: ${item.note}` : null}
+              </Typography>
+            </Stack>
+          ))}
+      </Box>
+
+      <Box
+        className="bill"
+        sx={{
+          height: "25px",
+          display: "flex",
+          justifyContent: "flex-end",
+          fontSize: "18px",
+          fontWeight: "600",
+        }}
+      >
+        <h3
+          style={{
+            backgroundColor: "#e0edee",
+            margin: "0",
+            padding: "10px",
+            color: "#FAAF00",
+          }}
+        >
+          <span style={{ marginRight: "50px", color: "#000" }}>Total:</span>
+          <span
+            style={{
+              color: "#7a7a7a",
+              fontSize: "16px",
+              marginRight: "5px",
+            }}
+          >
+            $
+          </span>
+          {foodCartData
+            .map((food) => food.quantity * food.price)
+            .reduce((sum, i) => sum + i, 0)}
+        </h3>
+      </Box>
     </Box>
   );
 }

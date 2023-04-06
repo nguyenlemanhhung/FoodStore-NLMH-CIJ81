@@ -1,28 +1,36 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Foods from "../components/Foods";
-import CartContainer from "../components/CartContainer";
-import Banner from "../components/Banner";
+import MainContent from "../components/MainContent";
+import SideBar from "../components/SideBar";
 import { useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import Tooltip from "@mui/material/Tooltip";
+import BottomMenu from "../components/BottomMenu";
+import Typography from "@mui/material/Typography";
 
 const ButtonContact = styled(Button)({
   position: "fixed",
-  bottom: "50px",
-  left: "90px",
+  bottom: "60px",
+  left: "10px",
   zIndex: 100,
-  "&::before": {
-    content: '"1800.6936"',
+  backgroundColor: "#FC6011",
+  borderRadius: "50px",
+  padding: 0,
+  width: "50px",
+  height: "50px",
+  overflow: "hidden",
+  transition: "width 0.5s ease",
+  display: "flex",
+  justifyContent: "start",
+  alignItems: "center",
+  minWidth: "50px",
+  color: "#fff",
+  "&:hover": {
+    width: "137px",
     backgroundColor: "#FC6011",
-    color: "#fff ",
-    padding: "5px 10px",
-    position: "absolute",
-    left: "-113%",
-    top: "50%",
-    transform: "translateY(-50%)",
-    borderRadius: "20px 0 0 20px",
+    padding: "0 10px 0 0 ",
   },
 });
 
@@ -30,7 +38,6 @@ function HomePage() {
   const theme = useTheme();
   return (
     <Box>
-      <Banner />
       <Container
         maxWidth="xl"
         sx={{
@@ -41,27 +48,20 @@ function HomePage() {
         }}
       >
         <Box sx={{ display: "flex" }}>
-          <Box
-            sx={{
-              width: "calc(100% - 350px)",
-              paddingRight: "20px",
-              [theme.breakpoints.down("md")]: {
-                paddingRight: "0",
-                width: "100%",
-              },
-            }}
-          >
-            <Foods />
-          </Box>
-          <CartContainer />
+          <MainContent />
+          <SideBar />
         </Box>
       </Container>
-      <ButtonContact>
-        <img
-          style={{ width: "50px" }}
-          src={require("../assets/icons/support.png")}
-        />
-      </ButtonContact>
+      <BottomMenu />
+      <Tooltip title="Hotline" placement="bottom" arrow>
+        <ButtonContact>
+          <img
+            style={{ width: "50px" }}
+            src={require("../assets/icons/support.png")}
+          />
+          <Typography>1800.6936</Typography>
+        </ButtonContact>
+      </Tooltip>
     </Box>
   );
 }
