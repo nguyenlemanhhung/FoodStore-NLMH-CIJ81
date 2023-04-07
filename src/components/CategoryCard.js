@@ -20,7 +20,7 @@ const CategoryContainer = styled(motion.button)({
 });
 
 function CategoryCard(props) {
-  const { handleFilterFoodByCategory, item, key } = props;
+  const { handleFilterFoodByCategory, item } = props;
 
   return (
     <Box

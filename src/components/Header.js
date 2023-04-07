@@ -32,12 +32,12 @@ const Item = styled(Box)({
 
 function TopBar() {
   return (
-    <Container maxWidth="xl" sx={{ backgroundColor: "rgba(255,255,255, 0.5)" }}>
+    <Container maxWidth="xl" sx={{ backgroundColor: "#ceecff" }}>
       <Box sx={{ width: "100%", padding: "10px" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {topBarContents.map((item, index) => {
             return (
-              <Grid item xs={6} md={3}>
+              <Grid item xs={6} md={3} key={index}>
                 <Item key={index}>
                   <img
                     style={{

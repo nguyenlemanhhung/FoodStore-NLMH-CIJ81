@@ -10,6 +10,9 @@ import PaymentForm from "./PaymentForm";
 import ReviewOrder from "./ReviewOrder";
 import { styled } from "@mui/material/styles";
 import { FoodCartContext } from "../../context/FoodCartContext";
+import FormControl from "@mui/material/FormControl";
+import FilledInput from "@mui/material/FilledInput";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const steps = ["Cart information", "Payment details", "Review your order"];
 const BoxItemStyle = styled("box")({
@@ -57,7 +60,7 @@ export default function OrderingSteps() {
             // padding: "20px 10px",
           }}
         >
-          <BoxItemStyle sx={{ marginBottom: "5px" }}>
+          <BoxItemStyle sx={{ marginBottom: "10px" }}>
             <Typography component="h1" variant="h4" align="center">
               Ordering Steps
             </Typography>
@@ -83,58 +86,23 @@ export default function OrderingSteps() {
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
-              <img
+              {/* <img
                 style={{ width: "100%" }}
                 src={require("../../assets/image/shipping3.jpeg")}
-              />
+              /> */}
             </Box>
           ) : (
             <React.Fragment>
               <BoxItemStyle
                 sx={{
                   overflow: "auto",
-                  height: "60%",
+                  height: "100%",
                   marginBottom: "10px",
                 }}
               >
                 {getStepContent(activeStep, handlePaymentData)}
               </BoxItemStyle>
-              {/* {activeStep === 0 && (
-                <Box
-                  sx={{
-                    margin: "0 20px 10px",
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    fontSize: "18px",
-                    fontWeight: "600",
-                  }}
-                >
-                  <h3
-                    style={{
-                      backgroundColor: "#e0edee",
-                      margin: "0",
-                      padding: "10px",
-                      color: "#FAAF00",
-                    }}
-                  >
-                    <span style={{ marginRight: "50px", color: "#000" }}>
-                      Total:
-                    </span>
-                    <span
-                      style={{
-                        color: "#7a7a7a",
-                        fontSize: "16px",
-                        marginRight: "5px",
-                      }}
-                    >
-                      $
-                    </span>
-                    {foodCartData
-                      .map((food) => food.quantity * food.price)
-                      .reduce((sum, i) => sum + i, 0)}
-                  </h3>
-                </Box>
-              )} */}
+
               <BoxItemStyle
                 sx={{
                   display: "flex",
@@ -158,19 +126,102 @@ export default function OrderingSteps() {
       ) : (
         <Box
           sx={{
-            backgroundColor: "#ceecff",
-            padding: "10px",
-            borderRadius: "10px",
-            height: "100%",
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            flexDirection: "column",
+            height: "100%",
           }}
         >
-          <img
-            style={{ width: "100%" }}
-            src="https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2FemptyCart.png?alt=media&token=50b733d4-cdd9-4025-bffe-8efa4066ca24"
-          />
+          <Box
+            sx={{
+              flexGrow: 1,
+              backgroundColor: "#ceecff",
+              padding: "10px",
+              borderRadius: "10px",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img
+              style={{ width: "100%" }}
+              src="https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2FemptyCart.png?alt=media&token=50b733d4-cdd9-4025-bffe-8efa4066ca24"
+            />
+          </Box>
+          <Box
+            sx={{
+              height: "100%",
+              flexGrow: 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "end",
+              padding: "30px 0",
+              marginTop: "20px",
+            }}
+          >
+            <Box
+              sx={{
+                backgroundColor: "#ceecff",
+                padding: "20px",
+                borderRadius: "50% 50% 20px 20px",
+              }}
+            >
+              <img
+                style={{
+                  width: "70%",
+                  position: "relative",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%,-50%)",
+                  zIndex: 10,
+                }}
+                src={require("../../assets/image/ship.png")}
+              />
+              <Typography
+                sx={{
+                  color: "#000",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                  textAlign: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                Faster Delivery and Get Free Shipping if you Subscribe
+              </Typography>
+              <FormControl
+                fullWidth
+                variant="filled"
+                sx={{
+                  borderRadius: "20px",
+                  overflow: "hidden",
+                }}
+              >
+                <FilledInput
+                  sx={{
+                    paddingRight: "10px",
+                    backgroundColor: "#fff",
+                    "&::before": { display: "none" },
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <Button
+                        variant="contained"
+                        sx={{
+                          fontSize: "12px",
+                          textTransform: "capitalize",
+                          fontWeight: "600",
+                          backgroundColor: "#f47900",
+                          borderRadius: "20px",
+                        }}
+                      >
+                        Subscribe
+                      </Button>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </Box>
+          </Box>
         </Box>
       )}
     </Box>

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import SigninForm from "./SigninForm";
 import SignupForm from "./SignupForm";
 import { motion } from "framer-motion";
 import { SignFormContext } from "../../context/SignFormContext";
+import { UserContext } from "../../context/UserContext";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -57,7 +57,7 @@ const BackDrop = styled(motion.div)({
   transform: "rotate(60deg)",
   top: "-600px",
   left: "-200px",
-  background: "rgb(241, 196, 15)",
+  // background: "rgb(241, 196, 15)",
   background:
     "linear-gradient(58deg,rgba(241, 196, 15, 1) 20%,rgba(243, 172, 18, 1) 100%)",
   zIndex: "5",
@@ -97,15 +97,15 @@ const expandingTransition = {
 };
 
 export default function SignForm() {
-  const [users, setUsers] = useState();
-  console.log("users", users);
+  const { setUserData } = useContext(UserContext);
+
   const getData = () => {
     fetch("https://641ab895c152063412df56eb.mockapi.io/api/v1/user")
       .then((resp) => {
         return resp.json();
       })
       .then((data) => {
-        setUsers(data);
+        setUserData(data);
       });
   };
   useEffect(() => {
@@ -142,6 +142,7 @@ export default function SignForm() {
   };
 
   const handleClose = () => {
+    console.log("close");
     setOpen(false);
   };
   const contextValue = { switchToSignup, switchToSignin };
@@ -182,7 +183,7 @@ export default function SignForm() {
               )}
             </Box>
             <Box sx={formContainer}>
-              {active === "signin" && <SigninForm />}
+              {active === "signin" && <SigninForm handleClose={handleClose} />}
               {active === "signup" && <SignupForm />}
             </Box>
           </DialogContent>

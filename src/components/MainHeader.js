@@ -2,12 +2,13 @@ import React from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -89,16 +90,18 @@ function MainHeader() {
           inputProps={{ "aria-label": "search" }}
         />
       </Search>
-      <IconButton
-        size="large"
-        aria-label="show 17 new notifications"
-        color="inherit"
-      >
-        <Badge badgeContent={17} color="error">
-          <NotificationsIcon />
-        </Badge>
-      </IconButton>
-      <AccountCircle />
+      <Stack direction="row" spacing={3}>
+        <IconButton
+          size="large"
+          aria-label="show 17 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <Avatar src="/broken-image.jpg" />
+      </Stack>
     </Box>
   );
 }

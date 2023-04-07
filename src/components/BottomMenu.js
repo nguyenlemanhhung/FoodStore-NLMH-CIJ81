@@ -43,7 +43,7 @@ export default function BottomMenu() {
         }}
       >
         <BottomNavigation
-          showLabels
+          // showLabels={true}
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);

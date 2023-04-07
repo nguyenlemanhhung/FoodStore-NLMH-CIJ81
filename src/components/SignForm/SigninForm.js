@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
@@ -17,8 +17,53 @@ import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { SignFormContext } from "../../context/SignFormContext";
+import { UserContext } from "../../context/UserContext";
 
-function SigninForm() {
+function SigninForm({ handleClose }) {
+  const { userData, setCurrentUser } = useContext(UserContext);
+  console.log("user data: ", userData);
+  const [formData, setFormData] = useState({
+    userEmail: "",
+    userPassword: "",
+  });
+  console.log(formData);
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const authenticate = (formData, userData) => {
+    console.log("formData", formData);
+    console.log("userData", userData);
+    const { userEmail, userPassword } = formData || {};
+    let isAuthen = false;
+    userData &&
+      userData.map((e) => {
+        if (e.email === userEmail) {
+          // check  pw
+          if (e.password === userPassword) {
+            isAuthen = true;
+            alert("login successful");
+          } else {
+            alert("pw sai");
+            isAuthen = false;
+          }
+        } else {
+          alert("email sai");
+          isAuthen = false;
+        }
+      });
+    return isAuthen;
+  };
+  const handleSignin = (formData, userData) => {
+    const isAuthen = authenticate(formData, userData);
+    if (isAuthen) {
+      console.log("authen");
+      setCurrentUser(formData);
+      handleClose();
+    }
+  };
   const { switchToSignup } = useContext(SignFormContext);
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -28,7 +73,7 @@ function SigninForm() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const handleCheckSignIn = () => {};
+
   return (
     <Box>
       <TextField
@@ -39,6 +84,7 @@ function SigninForm() {
         fullWidth
         label="Email"
         id="signin-email"
+        name="userEmail"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -46,6 +92,7 @@ function SigninForm() {
             </InputAdornment>
           ),
         }}
+        onChange={(e) => handleChangeInput(e)}
       />
       <TextField
         sx={{
@@ -56,6 +103,7 @@ function SigninForm() {
         type={showPassword ? "text" : "password"}
         label="Password"
         id="signin-password"
+        name="userPassword"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -79,6 +127,7 @@ function SigninForm() {
             </InputAdornment>
           ),
         }}
+        onChange={(e) => handleChangeInput(e)}
       />
       <Link href="#" underline="none">
         {"Forget your password?"}
@@ -86,7 +135,7 @@ function SigninForm() {
       <Button
         sx={{ borderRadius: "50px", width: "100%", mt: 3, mb: 4 }}
         variant="contained"
-        onClick={handleCheckSignIn}
+        onClick={() => handleSignin(formData, userData)}
       >
         Sign In
       </Button>

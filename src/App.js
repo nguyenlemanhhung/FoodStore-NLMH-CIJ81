@@ -1,12 +1,15 @@
 import "./App.css";
 import Router from "./routes/Index";
 import { FoodProvider } from "./context/FoodCartContext";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
-    <FoodProvider>
-      <Router />
-    </FoodProvider>
+    <UserProvider>
+      <FoodProvider>
+        <Router />
+      </FoodProvider>
+    </UserProvider>
   );
 }
 
