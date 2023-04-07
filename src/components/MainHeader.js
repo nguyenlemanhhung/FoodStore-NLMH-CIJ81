@@ -62,24 +62,12 @@ function MainHeader() {
       }}
     >
       <Box>
-        <Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: "400",
-            color: "#5b5b5b",
+        <img
+          style={{
+            height: "80px",
           }}
-        >
-          Welcome
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: "18px",
-            fontWeight: "600",
-            color: "#000",
-          }}
-        >
-          Lets Order Your Food
-        </Typography>
+          src={require("../assets/image/logo.png")}
+        />
       </Box>
       <Search>
         <SearchIconWrapper>
@@ -91,12 +79,8 @@ function MainHeader() {
         />
       </Search>
       <Stack direction="row" spacing={3}>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
+        <IconButton size="large">
+          <Badge badgeContent={1} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>

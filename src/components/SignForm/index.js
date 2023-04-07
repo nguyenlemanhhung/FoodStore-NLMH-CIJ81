@@ -10,11 +10,21 @@ import SignupForm from "./SignupForm";
 import { motion } from "framer-motion";
 import { SignFormContext } from "../../context/SignFormContext";
 import { UserContext } from "../../context/UserContext";
+import Divider from "@mui/material/Divider";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-
+const SignButton = styled(Button)({
+  width: "max-content",
+  fontSize: "12px",
+  fontWeight: "bold",
+  color: "#f47900",
+  "&:hover": {
+    color: "#fff",
+    backgroundColor: "#faaf00",
+  },
+});
 const dialogContent = {
   width: "350px",
   minHeight: "500px",
@@ -145,12 +155,22 @@ export default function SignForm() {
     console.log("close");
     setOpen(false);
   };
+
   const contextValue = { switchToSignup, switchToSignin };
+
+  const handleClickSignIn = () => {};
+  const handleClickSignUp = () => {};
+
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Box>
+        <SignButton onClick={handleClickSignIn}>Sign In</SignButton>
+        <Divider>Or</Divider>
+        <SignButton onClick={handleClickSignUp}>Sign Up</SignButton>
+      </Box>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Slide in alert dialog
-      </Button>
+      </Button> */}
       <SignFormContext.Provider value={contextValue}>
         <Dialog
           open={open}

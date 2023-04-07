@@ -24,22 +24,45 @@ export default function BottomMenu() {
   };
 
   return (
-    <Paper
-      sx={{
-        position: "fixed",
-        bottom: 0,
-        left: "50%",
-        transform: "translateX(-50%)",
-        zIndex: 1000,
-        borderRadius: "10px",
-      }}
-      elevation={3}
-    >
+    <>
+      <Fab
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+          zIndex: "1000",
+          backgroundColor: "#faaf00",
+          color: "#fff",
+          border: "4px solid #ceecff",
+          borderRadius: "10px",
+          boxShadow: "none",
+          "&:hover": {
+            backgroundColor: "#fff",
+            color: "#faaf00",
+          },
+        }}
+      >
+        <Badge
+          badgeContent={
+            foodCartData ? `${totalQuantityInCart(foodCartData)}` : 0
+          }
+          color="error"
+        >
+          <ShoppingBasketIcon />
+        </Badge>
+      </Fab>
       <Box
         sx={{
-          width: "500px ",
-          minWidth: "350px",
+          width: "100% ",
+          maxWidth: "500px",
           borderRadius: "10px",
+          position: "fixed",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 20,
+          overflow: "hidden",
         }}
       >
         <BottomNavigation
@@ -51,7 +74,7 @@ export default function BottomMenu() {
         >
           <BottomNavigationAction label="Home" icon={<HomeIcon />} />
           <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-          <Fab
+          {/* <Fab
             sx={{
               position: "absolute",
               top: "-30px",
@@ -73,7 +96,7 @@ export default function BottomMenu() {
             >
               <ShoppingBasketIcon />
             </Badge>
-          </Fab>
+          </Fab> */}
           <BottomNavigationAction
             label="Wallet"
             icon={<AccountBalanceWalletIcon />}
@@ -84,6 +107,67 @@ export default function BottomMenu() {
           />
         </BottomNavigation>
       </Box>
-    </Paper>
+    </>
+    // <Paper
+    //   sx={{
+    //     position: "fixed",
+    //     bottom: 0,
+    //     left: "50%",
+    //     transform: "translateX(-50%)",
+    //     zIndex: 1000,
+    //     borderRadius: "10px",
+    //   }}
+    //   elevation={3}
+    // >
+    //   <Box
+    //     sx={{
+    //       width: "500px ",
+    //       minWidth: "350px",
+    //       borderRadius: "10px",
+    //     }}
+    //   >
+    //     <BottomNavigation
+    //       // showLabels={true}
+    //       value={value}
+    //       onChange={(event, newValue) => {
+    //         setValue(newValue);
+    //       }}
+    //     >
+    //       <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+    //       <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+    //       <Fab
+    //         sx={{
+    //           position: "absolute",
+    //           top: "-30px",
+    //           zIndex: "1000",
+    //           backgroundColor: "#faaf00",
+    //           color: "#fff",
+    //           borderRadius: "10px",
+    //           "&:hover": {
+    //             backgroundColor: "#fff",
+    //             color: "#faaf00",
+    //           },
+    //         }}
+    //       >
+    //         <Badge
+    //           badgeContent={
+    //             foodCartData ? `${totalQuantityInCart(foodCartData)}` : 0
+    //           }
+    //           color="error"
+    //         >
+    //           <ShoppingBasketIcon />
+    //         </Badge>
+    //       </Fab>
+    //       <BottomNavigationAction
+    //         label="Wallet"
+    //         icon={<AccountBalanceWalletIcon />}
+    //       />
+    //       <BottomNavigationAction
+    //         label="Setting"
+    //         icon={<ManageAccountsIcon />}
+    //       />
+    //     </BottomNavigation>
+    //   </Box>
+    // </Paper>
   );
 }
