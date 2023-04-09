@@ -11,6 +11,8 @@ import { motion } from "framer-motion";
 import { SignFormContext } from "../../context/SignFormContext";
 import { UserContext } from "../../context/UserContext";
 import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -49,7 +51,7 @@ const HeaderContainer = styled("h5")({
   display: "flex",
   flexDirection: "column",
 });
-const HeaderText = styled("h5")({
+const HeaderText = styled("span")({
   fontSize: "30px",
   fontWeight: "700",
   lineHeight: "1.24",
@@ -72,10 +74,10 @@ const BackDrop = styled(motion.div)({
     "linear-gradient(58deg,rgba(241, 196, 15, 1) 20%,rgba(243, 172, 18, 1) 100%)",
   zIndex: "5",
 });
-const SmallText = styled("h6")({
+const SmallText = styled("span")({
   color: "#fff",
   fontWeight: "500",
-  fontSize: "11px",
+  fontSize: "16px",
   zIndex: "10",
   margin: "0",
   marginTop: "7px",
@@ -147,19 +149,20 @@ export default function SignForm() {
   };
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    console.log("close");
     setOpen(false);
   };
 
   const contextValue = { switchToSignup, switchToSignin };
 
-  const handleClickSignIn = () => {};
-  const handleClickSignUp = () => {};
+  const handleClickSignIn = () => {
+    setOpen(true);
+    setActive("signin");
+  };
+  const handleClickSignUp = () => {
+    setOpen(true);
+    setActive("signup");
+  };
 
   return (
     <>
@@ -168,9 +171,6 @@ export default function SignForm() {
         <Divider>Or</Divider>
         <SignButton onClick={handleClickSignUp}>Sign Up</SignButton>
       </Box>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Slide in alert dialog
-      </Button> */}
       <SignFormContext.Provider value={contextValue}>
         <Dialog
           open={open}
@@ -186,6 +186,18 @@ export default function SignForm() {
               variants={backdropVariants}
               transition={expandingTransition}
             />
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                top: "5px",
+                right: "5px",
+                color: "#000",
+                zIndex: 10,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
             <Box sx={formTitle}>
               {active === "signin" && (
                 <HeaderContainer>

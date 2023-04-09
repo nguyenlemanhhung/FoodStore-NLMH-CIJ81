@@ -22,7 +22,7 @@ function SignupForm() {
     event.preventDefault();
   };
   return (
-    <Box sx={{ textAlign: "center" }}>
+    <Box>
       <TextField
         sx={{
           marginBottom: "20px",
@@ -79,7 +79,7 @@ function SignupForm() {
         variant="outlined"
         fullWidth
         type={showPassword ? "text" : "password"}
-        label="Password"
+        label="Password Confirm"
         id="signup-confirm-password"
         InputProps={{
           startAdornment: (
@@ -87,55 +87,36 @@ function SignupForm() {
               <LockIcon fontSize="small" />
             </InputAdornment>
           ),
-          endAdornment: (
-            <InputAdornment position="start">
-              <IconButton
-                size="small"
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? (
-                  <VisibilityOff fontSize="small" />
-                ) : (
-                  <Visibility fontSize="small" />
-                )}
-              </IconButton>
-            </InputAdornment>
-          ),
+          // endAdornment: (
+          //   <InputAdornment position="start">
+          //     <IconButton
+          //       size="small"
+          //       aria-label="toggle password visibility"
+          //       onClick={handleClickShowPassword}
+          //       onMouseDown={handleMouseDownPassword}
+          //     >
+          //       {showPassword ? (
+          //         <VisibilityOff fontSize="small" />
+          //       ) : (
+          //         <Visibility fontSize="small" />
+          //       )}
+          //     </IconButton>
+          //   </InputAdornment>
+          // ),
         }}
       />
       <Button
         sx={{ borderRadius: "50px", width: "100%", mt: 3, mb: 4 }}
         variant="contained"
       >
-        Sign In
+        Sign Up
       </Button>
       <Typography>
         Already have an account?
         <Link sx={{ ml: 1 }} href="#" underline="none" onClick={switchToSignin}>
-          {"Sign Up"}
+          {"Sign In"}
         </Link>
       </Typography>
-      {/* <FormControl sx={{ m: 1 }} variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-
-        <Input
-          id="standard-adornment-password"
-          type={showPassword ? "text" : "password"}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl> */}
     </Box>
   );
 }

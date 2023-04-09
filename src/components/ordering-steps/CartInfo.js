@@ -16,7 +16,7 @@ import { FoodCartContext } from "../../context/FoodCartContext";
 
 export default function CartInfo() {
   const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
-  console.log("foodCartData", foodCartData);
+  // console.log("foodCartData", foodCartData);
   const reduceQuantity = (item) => {
     const existingItem = foodCartData.find((food) => food.id === item.id);
 
@@ -32,7 +32,7 @@ export default function CartInfo() {
   };
 
   const incQuantity = (item) => {
-    console.log("item click:", item);
+    // console.log("item click:", item);
     setFoodCartData(() =>
       foodCartData.map((food) =>
         food.id === item.id ? { ...food, quantity: food.quantity + 1 } : food

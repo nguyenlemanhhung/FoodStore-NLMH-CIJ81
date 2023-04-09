@@ -8,10 +8,14 @@ import Stack from "@mui/material/Stack";
 import FoodCard from "./FoodCard";
 import FoodDetails from "./FoodDetails";
 
-function Foods() {
+function Foods({ searchText }) {
   const [foods, setFoods] = useState();
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState(null);
+  const [foodSearch, setFoodSearch] = useState(null);
+  const [foodFilter, setFoodFilter] = useState(null);
+  const [foodList, setFoodList] = useState(null);
+  const [foodCart, setFoodCart] = useState([]);
 
   const handleOpenDialog = (item) => {
     setDetails(item);
@@ -30,15 +34,13 @@ function Foods() {
       })
       .then((data) => {
         setFoods(data);
-        setFoodFilter(data);
+        setFoodList(data);
       });
   };
   useEffect(() => {
     getData();
-    setFoodFilter();
+    setFoodList();
   }, []);
-
-  const [foodFilter, setFoodFilter] = useState();
 
   const [categoriesOfFood, setCategoriesOfFood] = useState([
     {
@@ -105,23 +107,53 @@ function Foods() {
         let isActive = false;
         if (item.id === category.id) {
           isActive = true;
-          console.log("is completed:", isActive);
+          // console.log("is completed:", isActive);
         }
         return { ...category, isActive };
       })
     );
 
-    const listFoodFilter = foods.filter((e) => e.type === item.type);
+    // default is get all
+    let listFoodFilter = foods;
+
+    // filter by category
+    if (item.type !== "all") {
+      listFoodFilter = foods.filter((e) => e.type === item.type);
+    }
+
     setFoodFilter(listFoodFilter);
   };
 
-  const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
+  const handleSearchFood = (text) => {
+    if (!text || !foods) {
+      return;
+    }
+    const listFoodSearch = foods.filter((item) => {
+      return item.name
+        .toString()
+        .toLowerCase()
+        .includes(text.toString().toLowerCase());
+    });
+    setFoodSearch(listFoodSearch);
+  };
+  useEffect(() => {
+    handleSearchFood(searchText);
+  }, [searchText]);
 
-  const [foodCart, setFoodCart] = useState([]);
+  useEffect(() => {
+    if (searchText && searchText.length > 0) {
+      setFoodList(foodSearch);
+    } else {
+      setFoodList(foodFilter);
+    }
+  }, [searchText, foodSearch, foodFilter]);
+
+  const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
+  // console.log("foodCartData", foodCartData);
 
   const handleAddCart = (item, quantity, note) => {
     const checkExistingItem = foodCart.find((e) => e.id === item.id);
-    console.log("check item in cart:", checkExistingItem);
+    // console.log("check item in cart:", checkExistingItem);
     if (checkExistingItem) {
       setFoodCart(() =>
         foodCart.map((food) =>
@@ -148,6 +180,8 @@ function Foods() {
       setFoodCartData(foodCart);
     }
   }, [foodCart]);
+
+  console.log({ foodList, searchText });
 
   return (
     <Box>
@@ -189,8 +223,8 @@ function Foods() {
         }}
       >
         <Grid container columnSpacing={{ xs: 3, md: 4, lg: 5 }}>
-          {foodFilter &&
-            foodFilter.map((item, idx) => (
+          {foodList &&
+            foodList.map((item, idx) => (
               <FoodCard
                 key={idx}
                 handleOpenDialog={handleOpenDialog}

@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function MainHeader() {
+function MainHeader({ handleSearch }) {
   return (
     <Box
       sx={{
@@ -74,6 +74,8 @@ function MainHeader() {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
+          name="search"
+          onChange={(e) => handleSearch(e.target.value)}
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
         />

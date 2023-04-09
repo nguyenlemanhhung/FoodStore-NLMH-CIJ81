@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import MainContent from "../components/MainContent";
-import SideBar from "../components/SideBar";
 import { useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Tooltip from "@mui/material/Tooltip";
 import BottomMenu from "../components/BottomMenu";
 import Typography from "@mui/material/Typography";
+import Drawer from "@mui/material/Drawer";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import SideBar from "../components/SideBar";
 
 const ButtonContact = styled(Button)({
   position: "fixed",
@@ -36,6 +38,16 @@ const ButtonContact = styled(Button)({
 
 function HomePage() {
   const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
+  const [anchor, setAnchor] = useState(false);
+
+  const toggleDrawer = (open) => {
+    if (isDesktop) return;
+
+    setAnchor(open);
+  };
+
   return (
     <Box>
       <Container
@@ -49,18 +61,30 @@ function HomePage() {
       >
         <Box sx={{ display: "flex" }}>
           <MainContent />
-          <SideBar />
+          {isDesktop ? (
+            <SideBar />
+          ) : (
+            <Drawer
+              anchor={"right"}
+              open={anchor}
+              onClose={() => toggleDrawer(false)}
+            >
+              <SideBar toggleDrawer={() => toggleDrawer(false)} />
+            </Drawer>
+          )}
         </Box>
       </Container>
-      <BottomMenu />
+      <BottomMenu handleDrawer={() => toggleDrawer(true)} />
       <Tooltip title="Hotline" placement="bottom" arrow>
-        <ButtonContact>
-          <img
-            style={{ width: "50px" }}
-            src={require("../assets/icons/support.png")}
-          />
-          <Typography>1800.6936</Typography>
-        </ButtonContact>
+        <Box>
+          <ButtonContact>
+            <img
+              style={{ width: "50px" }}
+              src={require("../assets/icons/support.png")}
+            />
+            <Typography>1800.6936</Typography>
+          </ButtonContact>
+        </Box>
       </Tooltip>
     </Box>
   );

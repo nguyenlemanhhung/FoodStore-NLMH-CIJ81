@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
@@ -20,13 +20,21 @@ export default function FoodDetails({
   handleCloseDialog,
   open,
   details,
-  foodCartData,
+  cartData,
   handleAddCart,
 }) {
-  const [note, setNote] = useState(null);
-
+  const [note, setNote] = useState("");
   const [quantity, setQuantity] = useState(1);
-  console.log(foodCartData);
+
+  useEffect(() => {
+    setNote("");
+    setQuantity(1);
+  }, [details]);
+
+  const handleChange = (e) => {
+    setNote(e.target.value);
+  };
+
   if (!details) {
     return null;
   }
@@ -79,7 +87,8 @@ export default function FoodDetails({
               label="Note"
               multiline
               rows={3}
-              onChange={(e) => setNote(e.target.value)}
+              value={note}
+              onChange={(e) => handleChange(e)}
             />
             <Box
               sx={{

@@ -21,12 +21,11 @@ import { UserContext } from "../../context/UserContext";
 
 function SigninForm({ handleClose }) {
   const { userData, setCurrentUser } = useContext(UserContext);
-  console.log("user data: ", userData);
+
   const [formData, setFormData] = useState({
     userEmail: "",
     userPassword: "",
   });
-  console.log(formData);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -34,8 +33,8 @@ function SigninForm({ handleClose }) {
   };
 
   const authenticate = (formData, userData) => {
-    console.log("formData", formData);
-    console.log("userData", userData);
+    // console.log("formData", formData);
+    // console.log("userData", userData);
     const { userEmail, userPassword } = formData || {};
     let isAuthen = false;
     userData &&
@@ -59,7 +58,7 @@ function SigninForm({ handleClose }) {
   const handleSignin = (formData, userData) => {
     const isAuthen = authenticate(formData, userData);
     if (isAuthen) {
-      console.log("authen");
+      // console.log("authen");
       setCurrentUser(formData);
       handleClose();
     }

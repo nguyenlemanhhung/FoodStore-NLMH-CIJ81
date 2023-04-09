@@ -16,7 +16,7 @@ export default function PaymentForm({ handleFormData }) {
     discountCode: "",
   };
   const [customerInfo, setCustomerInfo] = useState(DEFAULT_DATA);
-  console.log("customerInfo", customerInfo);
+  // console.log("customerInfo", customerInfo);
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setCustomerInfo({ ...customerInfo, [name]: value });

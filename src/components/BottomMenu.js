@@ -12,7 +12,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import HomeIcon from "@mui/icons-material/Home";
 
-export default function BottomMenu() {
+export default function BottomMenu({ handleDrawer }) {
   const [value, setValue] = useState(0);
   const { foodCartData } = useContext(FoodCartContext);
   const totalQuantityInCart = (foodData) => {
@@ -26,6 +26,7 @@ export default function BottomMenu() {
   return (
     <>
       <Fab
+        onClick={handleDrawer}
         sx={{
           position: "fixed",
           bottom: 0,

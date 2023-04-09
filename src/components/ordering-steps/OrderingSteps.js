@@ -34,8 +34,8 @@ function getStepContent(step, handlePaymentData) {
 }
 
 export default function OrderingSteps() {
-  const { foodCartData } = useContext(FoodCartContext);
-  console.log("food data:", foodCartData);
+  const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
+  // console.log("food data:", foodCartData);
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -47,7 +47,10 @@ export default function OrderingSteps() {
   };
 
   const handlePaymentData = (paymentData) => {
-    console.log("paymentData", paymentData);
+    // console.log("paymentData", paymentData);
+  };
+  const handleNewOrder = () => {
+    setFoodCartData(null);
   };
   return (
     <Box sx={{ height: "100%" }}>
@@ -86,10 +89,7 @@ export default function OrderingSteps() {
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
-              {/* <img
-                style={{ width: "100%" }}
-                src={require("../../assets/image/shipping3.jpeg")}
-              /> */}
+              <Button onClick={handleNewOrder}>New Order</Button>
             </Box>
           ) : (
             <React.Fragment>
