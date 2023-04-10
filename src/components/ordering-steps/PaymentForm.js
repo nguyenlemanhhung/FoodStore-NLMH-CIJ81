@@ -7,31 +7,38 @@ import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
 import DiscountIcon from "@mui/icons-material/Discount";
+import { Typography } from "@mui/material";
 
-export default function PaymentForm({ handleFormData }) {
+export default function PaymentForm({ handleFormData, error }) {
   const DEFAULT_DATA = {
     name: "",
     phone: "",
     address: "",
     // discountCode: "",
   };
-  const [customerInfo, setCustomerInfo] = useState(DEFAULT_DATA);
-  console.log("customerInfo", customerInfo);
+  const [customerForm, setCustomerForm] = useState(DEFAULT_DATA);
+
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    setCustomerInfo({ ...customerInfo, [name]: value });
+    setCustomerForm({ ...customerForm, [name]: value });
   };
   useEffect(() => {
-    handleFormData(customerInfo);
-  }, [handleFormData, customerInfo]);
+    handleFormData(customerForm);
+  }, [handleFormData, customerForm]);
   return (
     <React.Fragment>
+      <Typography
+        sx={{
+          color: "red",
+        }}
+      >
+        {error}
+      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sx={{ display: "flex", alignItems: "flex-end" }}>
           <PersonIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
             onChange={(e) => handleChangeInput(e)}
-            required
             id="name"
             name="name"
             label="Your Name"
@@ -44,7 +51,6 @@ export default function PaymentForm({ handleFormData }) {
           <PermPhoneMsgIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
             onChange={(e) => handleChangeInput(e)}
-            required
             id="phone"
             name="phone"
             label="Phone Number"
@@ -57,7 +63,6 @@ export default function PaymentForm({ handleFormData }) {
           <PersonPinCircleIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
             onChange={(e) => handleChangeInput(e)}
-            required
             id="address"
             name="address"
             label="Address"

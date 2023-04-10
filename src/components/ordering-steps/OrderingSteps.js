@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -20,14 +20,14 @@ const BoxItemStyle = styled("box")({
   borderRadius: "10px",
   padding: "10px",
 });
-function getStepContent(step, handlePaymentData) {
+function getStepContent(step, customerInfo, handlePaymentData, error) {
   switch (step) {
     case 0:
       return <CartInfo />;
     case 1:
-      return <PaymentForm handleFormData={handlePaymentData} />;
+      return <PaymentForm handleFormData={handlePaymentData} error={error} />;
     case 2:
-      return <ReviewOrder />;
+      return <ReviewOrder customerInfo={customerInfo} />;
     default:
       throw new Error("Unknown step");
   }
@@ -36,21 +36,44 @@ function getStepContent(step, handlePaymentData) {
 export default function OrderingSteps() {
   const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
   // console.log("food data:", foodCartData);
+  const [customerInfo, setCustomerInfo] = useState(null);
 
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const [allowNext, setAllowNext] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    console.log(activeStep, allowNext);
+    if (activeStep === 1 && !allowNext) {
+      setError("Please enter your information");
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handlePaymentData = (paymentData) => {
-    // console.log("paymentData", paymentData);
+    setCustomerInfo(paymentData);
+
+    if (
+      paymentData.name.length === 0 ||
+      paymentData.address.length === 0 ||
+      paymentData.phone.length === 0
+    ) {
+      setAllowNext(false);
+    } else {
+      setAllowNext(true);
+    }
   };
   const handleNewOrder = () => {
     setFoodCartData(null);
+    setActiveStep(0);
+    setAllowNext(false);
+    setCustomerInfo(null);
+    setError(null);
   };
   return (
     <Box sx={{ height: "100%" }}>
@@ -89,7 +112,18 @@ export default function OrderingSteps() {
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
-              <Button onClick={handleNewOrder}>New Order</Button>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={handleNewOrder}
+                sx={{
+                  backgroundColor: "#faaf00",
+                  marginTop: "20px",
+                  fontWeight: "700",
+                }}
+              >
+                New Order
+              </Button>
             </Box>
           ) : (
             <React.Fragment>
@@ -100,7 +134,12 @@ export default function OrderingSteps() {
                   marginBottom: "10px",
                 }}
               >
-                {getStepContent(activeStep, handlePaymentData)}
+                {getStepContent(
+                  activeStep,
+                  customerInfo,
+                  handlePaymentData,
+                  error
+                )}
               </BoxItemStyle>
 
               <BoxItemStyle

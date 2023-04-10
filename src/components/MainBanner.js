@@ -54,7 +54,7 @@ function MainBanner() {
         >
           <img
             style={{
-              height: "200px",
+              width: "100%",
             }}
             src={require("../assets/image/hero-banner.png")}
           />

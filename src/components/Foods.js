@@ -183,7 +183,7 @@ function Foods({ searchText }) {
     }
   }, [foodCart]);
 
-  console.log({ foodList, searchText });
+  // console.log({ foodList, searchText });
 
   return (
     <Box>

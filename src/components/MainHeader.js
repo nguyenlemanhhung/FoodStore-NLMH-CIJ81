@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
@@ -11,6 +14,9 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "@mui/material/styles";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,7 +64,15 @@ function MainHeader({ handleSearch }) {
   const theme = useTheme();
 
   const { userData } = useContext(AuthContext);
-  console.log(userData);
+  // console.log(userData);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Box
       sx={{
@@ -106,11 +120,41 @@ function MainHeader({ handleSearch }) {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          {userData ? (
-            <Avatar src={userData.avatar} />
-          ) : (
-            <Avatar src="/broken-image.jpg" />
-          )}
+          <Box>
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              {userData ? (
+                <Avatar src={userData.avatar} />
+              ) : (
+                <Avatar src="/broken-image.jpg" />
+              )}
+            </Button>
+            {userData ? (
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              >
+                <MenuItem onClick={handleClose}>
+                  <ListItemIcon>
+                    <LogoutIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Logout</ListItemText>
+                </MenuItem>
+              </Menu>
+            ) : null}
+          </Box>
         </Stack>
       </Box>
     </Box>
