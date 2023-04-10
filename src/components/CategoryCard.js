@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material/styles";
 
 const CategoryContainer = styled(motion.button)({
   padding: "5px",
@@ -20,6 +21,7 @@ const CategoryContainer = styled(motion.button)({
 });
 
 function CategoryCard(props) {
+  const theme = useTheme();
   const { handleFilterFoodByCategory, item } = props;
 
   return (
@@ -37,6 +39,9 @@ function CategoryCard(props) {
         "&:hover": {
           backgroundColor: "#FC6011",
           color: "#fff",
+        },
+        [theme.breakpoints.down("md")]: {
+          margin: "0 5px",
         },
       }}
       onClick={() => handleFilterFoodByCategory(item)}

@@ -13,10 +13,10 @@ export default function PaymentForm({ handleFormData }) {
     name: "",
     phone: "",
     address: "",
-    discountCode: "",
+    // discountCode: "",
   };
   const [customerInfo, setCustomerInfo] = useState(DEFAULT_DATA);
-  // console.log("customerInfo", customerInfo);
+  console.log("customerInfo", customerInfo);
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setCustomerInfo({ ...customerInfo, [name]: value });
@@ -67,7 +67,7 @@ export default function PaymentForm({ handleFormData }) {
           />
         </Grid>
 
-        <Grid item xs={12} sx={{ display: "flex", alignItems: "flex-end" }}>
+        {/* <Grid item xs={12} sx={{ display: "flex", alignItems: "flex-end" }}>
           <DiscountIcon sx={{ mr: "5px", color: "#FAAF00" }} />
           <TextField
             onChange={(e) => handleChangeInput(e)}
@@ -79,7 +79,7 @@ export default function PaymentForm({ handleFormData }) {
             autoComplete="shipping discount-code"
             variant="standard"
           />
-        </Grid>
+        </Grid> */}
 
         {/* <Grid item xs={12}>
           <FormControlLabel

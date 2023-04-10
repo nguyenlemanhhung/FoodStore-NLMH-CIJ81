@@ -151,9 +151,7 @@ function FoodCard(props) {
               fontWeight: "400",
             }}
           >
-            Bạc sỉu chính là "Ly sữa trắng kèm một chút cà phê". Thức uống này
-            rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê
-            vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.
+            {item.description}
           </Typography>
         </Box>
       </FoodContainer>

@@ -23,19 +23,20 @@ function MainBanner() {
           alignItems: "center",
         }}
       >
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={7}>
           <Typography
             sx={{
-              fontSize: "18px",
+              fontSize: "24px",
               color: "#fff",
               fontWeight: 600,
+              marginBottom: "30px",
             }}
           >
             Order Food and <br /> Get Discount Up To
           </Typography>
           <Typography
             sx={{
-              fontSize: "24px",
+              fontSize: "30px",
               color: "#fff",
               fontWeight: 600,
             }}
@@ -46,14 +47,14 @@ function MainBanner() {
         <Grid
           item
           xs={12}
-          sm={6}
+          sm={5}
           sx={{
             textAlign: "center",
           }}
         >
           <img
             style={{
-              width: "200px",
+              height: "200px",
             }}
             src={require("../assets/image/hero-banner.png")}
           />

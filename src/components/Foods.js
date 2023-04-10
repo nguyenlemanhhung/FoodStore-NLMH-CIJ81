@@ -7,6 +7,7 @@ import { FoodCartContext } from "../context/FoodCartContext";
 import Stack from "@mui/material/Stack";
 import FoodCard from "./FoodCard";
 import FoodDetails from "./FoodDetails";
+import { useTheme } from "@mui/material/styles";
 
 function Foods({ searchText }) {
   const [foods, setFoods] = useState();
@@ -16,6 +17,7 @@ function Foods({ searchText }) {
   const [foodFilter, setFoodFilter] = useState(null);
   const [foodList, setFoodList] = useState(null);
   const [foodCart, setFoodCart] = useState([]);
+  const theme = useTheme();
 
   const handleOpenDialog = (item) => {
     setDetails(item);
@@ -206,6 +208,10 @@ function Foods({ searchText }) {
           zIndex: 100,
           backgroundColor: "rgba(255, 255, 255,0.6)",
           borderRadius: "10px",
+          [theme.breakpoints.down("md")]: {
+            justifyContent: "start",
+            padding: "10px",
+          },
         }}
       >
         {categoriesOfFood.map((item, index) => (

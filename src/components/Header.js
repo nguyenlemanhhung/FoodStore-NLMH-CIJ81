@@ -11,8 +11,9 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Link from "@mui/material/Link";
+import { useTheme } from "@mui/material/styles";
 
-const SocialItem = styled(IconButton)({
+const SocialItem = styled(IconButton)(({ theme }) => ({
   color: "#faaf00",
   backgroundColor: "transparent",
   borderRadius: 0,
@@ -21,7 +22,11 @@ const SocialItem = styled(IconButton)({
     color: "#fff",
     borderRadius: "5px",
   },
-});
+  [theme.breakpoints.down("sm")]: {
+    margin: "0 10px",
+    height: "100%",
+  },
+}));
 
 const topBarContents = [
   {
@@ -48,33 +53,18 @@ const Item = styled(Box)({
 });
 
 function TopBar() {
+  const theme = useTheme();
   return (
     <Box>
       <Container maxWidth="xl">
         <Box
           sx={{
             display: "flex",
+            [theme.breakpoints.down("sm")]: {
+              flexDirection: "column",
+            },
           }}
         >
-          <Box
-            sx={{
-              marginRight: "10px",
-              backgroundColor: "#ceecff",
-              borderRadius: "5px",
-            }}
-          >
-            <Stack>
-              <SocialItem>
-                <FacebookIcon />
-              </SocialItem>
-              <SocialItem>
-                <InstagramIcon />
-              </SocialItem>
-              <SocialItem>
-                <TwitterIcon />
-              </SocialItem>
-            </Stack>
-          </Box>
           <Box
             sx={{
               backgroundColor: "#ceecff",
@@ -85,6 +75,9 @@ function TopBar() {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "space-between",
+              [theme.breakpoints.down("md")]: {
+                width: "auto",
+              },
             }}
           >
             <Box sx={{ width: "100%", padding: "10px" }}>
@@ -123,11 +116,11 @@ function TopBar() {
               </Grid>
             </Box>
             <Box>
-              <Link href="#" sx={{ marginRight: "10px" }}>
+              <Link href="#" sx={{ marginRight: "20px" }}>
                 <img
                   src={require("../assets/image/google-play.png")}
                   style={{
-                    height: "40px",
+                    height: "35px",
                   }}
                 />
               </Link>
@@ -135,7 +128,7 @@ function TopBar() {
                 <img
                   src={require("../assets/image/app-store.png")}
                   style={{
-                    height: "40px",
+                    height: "35px",
                   }}
                 />
               </Link>
@@ -143,13 +136,61 @@ function TopBar() {
           </Box>
           <Box
             sx={{
-              backgroundColor: "#ceecff",
-              borderRadius: "10px",
-              padding: "10px",
-              marginLeft: "10px",
+              display: "flex",
+              [theme.breakpoints.down("sm")]: {
+                marginTop: "10px",
+              },
             }}
           >
-            <SignForm />
+            <Box
+              sx={{
+                marginLeft: "10px",
+                backgroundColor: "#ceecff",
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                [theme.breakpoints.down("sm")]: {
+                  marginLeft: 0,
+                  width: "50%",
+                },
+              }}
+            >
+              <Stack
+                sx={{
+                  [theme.breakpoints.down("sm")]: {
+                    width: "100%",
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
+                  },
+                }}
+              >
+                <SocialItem>
+                  <FacebookIcon />
+                </SocialItem>
+                <SocialItem>
+                  <InstagramIcon />
+                </SocialItem>
+                <SocialItem>
+                  <TwitterIcon />
+                </SocialItem>
+              </Stack>
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: "#ceecff",
+                borderRadius: "10px",
+                padding: "10px",
+                marginLeft: "10px",
+                display: "flex",
+                alignItems: "center",
+                [theme.breakpoints.down("sm")]: {
+                  marginLeft: "20px",
+                  width: "50%",
+                },
+              }}
+            >
+              <SignForm />
+            </Box>
           </Box>
         </Box>
       </Container>

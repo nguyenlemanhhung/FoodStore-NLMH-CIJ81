@@ -7,13 +7,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { FoodCartContext } from "../../context/FoodCartContext";
 
-// function totalPrice(foodData) {
-//   return foodData
-//     .map((food) => food.quantity * food.price)
-//     .reduce((sum, i) => sum + i, 0);
-// }
-// console.log("totalPrice", totalPrice(foodData));
-
 export default function CartInfo() {
   const { foodCartData, setFoodCartData } = useContext(FoodCartContext);
   // console.log("foodCartData", foodCartData);
@@ -40,7 +33,15 @@ export default function CartInfo() {
     );
   };
   return (
-    <Box className="list-container">
+    <Box
+      className="list-container"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100%",
+      }}
+    >
       <Box className="list-order" sx={{ width: "100%", overflow: "auto" }}>
         {foodCartData &&
           foodCartData.map((item, idx) => (
@@ -153,16 +154,16 @@ export default function CartInfo() {
       <Box
         className="bill"
         sx={{
-          height: "25px",
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "center",
           fontSize: "18px",
           fontWeight: "600",
         }}
       >
         <h3
           style={{
-            backgroundColor: "#e0edee",
+            border: "1px solid #054f7a",
+            borderRadius: "10px",
             margin: "0",
             padding: "10px",
             color: "#FAAF00",

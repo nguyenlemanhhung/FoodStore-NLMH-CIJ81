@@ -18,9 +18,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { SignFormContext } from "../../context/SignFormContext";
 import { UserContext } from "../../context/UserContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function SigninForm({ handleClose }) {
   const { userData, setCurrentUser } = useContext(UserContext);
+  const { setUserData } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     userEmail: "",
@@ -33,8 +35,6 @@ function SigninForm({ handleClose }) {
   };
 
   const authenticate = (formData, userData) => {
-    // console.log("formData", formData);
-    // console.log("userData", userData);
     const { userEmail, userPassword } = formData || {};
     let isAuthen = false;
     userData &&
@@ -43,6 +43,7 @@ function SigninForm({ handleClose }) {
           // check  pw
           if (e.password === userPassword) {
             isAuthen = true;
+            setUserData(e);
             alert("login successful");
           } else {
             alert("pw sai");
@@ -60,6 +61,7 @@ function SigninForm({ handleClose }) {
     if (isAuthen) {
       // console.log("authen");
       setCurrentUser(formData);
+
       handleClose();
     }
   };

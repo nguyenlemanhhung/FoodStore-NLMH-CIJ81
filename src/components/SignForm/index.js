@@ -13,11 +13,14 @@ import { UserContext } from "../../context/UserContext";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { Typography } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-const SignButton = styled(Button)({
+const SignButton = styled(Button)(({ theme }) => ({
   width: "max-content",
   fontSize: "12px",
   fontWeight: "bold",
@@ -26,7 +29,10 @@ const SignButton = styled(Button)({
     color: "#fff",
     backgroundColor: "#faaf00",
   },
-});
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+}));
 const dialogContent = {
   width: "350px",
   minHeight: "500px",
@@ -109,7 +115,10 @@ const expandingTransition = {
 };
 
 export default function SignForm() {
+  const theme = useTheme();
   const { setUserData } = useContext(UserContext);
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const getData = () => {
     fetch("https://641ab895c152063412df56eb.mockapi.io/api/v1/user")
@@ -166,9 +175,22 @@ export default function SignForm() {
 
   return (
     <>
-      <Box>
+      <Box
+        sx={{
+          [theme.breakpoints.down("sm")]: {
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-between",
+          },
+        }}
+      >
         <SignButton onClick={handleClickSignIn}>Sign In</SignButton>
-        <Divider>Or</Divider>
+        {isMobile ? (
+          <Divider orientation="vertical" variant="middle" flexItem />
+        ) : (
+          <Divider>Or</Divider>
+        )}
+
         <SignButton onClick={handleClickSignUp}>Sign Up</SignButton>
       </Box>
       <SignFormContext.Provider value={contextValue}>

@@ -77,10 +77,20 @@ export default function FoodDetails({
                 color: "#fc6f11",
                 fontSize: "24px",
                 fontWeight: "bold",
-                marginBottom: "20px",
+                marginBottom: "10px",
               }}
             >
               {details.name}
+            </Typography>
+            <Typography
+              sx={{
+                color: "#000",
+                fontSize: "14px",
+                fontWeight: "bold",
+                marginBottom: "20px",
+              }}
+            >
+              {details.description}
             </Typography>
             <TextField
               fullWidth
@@ -151,13 +161,23 @@ export default function FoodDetails({
                   </IconButton>
                 </Box>
               </Box>
+
               <Typography
-                variant="h6"
                 sx={{
+                  fontSize: "24px",
                   fontWeight: 700,
                 }}
               >
-                {details.price * quantity}$
+                <span
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 700,
+                    color: "#fc6f11",
+                  }}
+                >
+                  $
+                </span>
+                {details.price * quantity}
               </Typography>
             </Box>
             <Button
