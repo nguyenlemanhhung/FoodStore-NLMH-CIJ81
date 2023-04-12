@@ -64,6 +64,7 @@ export default function BottomMenu({ handleDrawer }) {
           transform: "translateX(-50%)",
           zIndex: 20,
           overflow: "hidden",
+          boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
         }}
       >
         <BottomNavigation

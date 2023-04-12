@@ -129,7 +129,7 @@ export default function ReviewOrder({ customerInfo }) {
             >
               Customer Info
             </Typography>
-            <stack>
+            <Stack>
               <InfoItem>
                 <InfoTitle>Name:</InfoTitle>
                 {customerInfo.name}
@@ -142,7 +142,7 @@ export default function ReviewOrder({ customerInfo }) {
                 <InfoTitle>Address:</InfoTitle>
                 {customerInfo.address}
               </InfoItem>
-            </stack>
+            </Stack>
           </Box>
         </Box>
 

@@ -15,7 +15,7 @@ import FilledInput from "@mui/material/FilledInput";
 import InputAdornment from "@mui/material/InputAdornment";
 
 const steps = ["Cart information", "Payment details", "Review your order"];
-const BoxItemStyle = styled("box")({
+const BoxItemStyle = styled(Box)({
   backgroundColor: "#ceecff",
   borderRadius: "10px",
   padding: "10px",
@@ -104,13 +104,36 @@ export default function OrderingSteps() {
           </BoxItemStyle>
           {activeStep === steps.length ? (
             <Box sx={{ padding: "10px" }}>
-              <Typography variant="h5" gutterBottom>
+              <img
+                style={{ width: "100%" }}
+                src={require("../../assets/image/thank.png")}
+              />
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  margin: "20px 0",
+                }}
+              >
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                Your order number is
+                <span
+                  style={{
+                    color: "#fc6011",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                    marginLeft: "5px",
+                  }}
+                >
+                  #2001539
+                </span>
+                <br />
+                We have emailed your order confirmation, and will send you an
+                update when your order has shipped.
               </Typography>
               <Button
                 fullWidth
